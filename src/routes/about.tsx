@@ -81,7 +81,7 @@ function AboutPage() {
       </section>
 
       {/* Vision & mission */}
-      <section className="bg-purple text-purple-foreground">
+      <section className="bg-purple-deep text-purple-foreground">
         <div className="container-page grid gap-12 py-16 sm:py-24 lg:grid-cols-2 lg:gap-20">
           <div>
             <p className="text-xs font-semibold tracking-[0.14em] text-purple-muted uppercase">Vision</p>
