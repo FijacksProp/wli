@@ -25,9 +25,9 @@ export const Route = createFileRoute("/style-guide")({
 });
 
 const SWATCHES = [
-  { name: "Deep plum", token: "purple", cls: "bg-purple", note: "Headings and restrained brand surfaces · #302536" },
+  { name: "Rich plum", token: "purple", cls: "bg-purple", note: "Headings and restrained brand surfaces · #5A2F78" },
   { name: "Charcoal plum", token: "purple-deep", cls: "bg-purple-deep", note: "Dark feature panels and footer · #211A25" },
-  { name: "Muted aubergine", token: "primary", cls: "bg-primary", note: "Buttons, links and selected states · #624776" },
+  { name: "Royal amethyst", token: "primary", cls: "bg-primary", note: "Buttons, links and selected states · #7040A4" },
   { name: "Logo purple", token: "brand-purple", cls: "bg-brand-purple", note: "Small identity accent · #8201CF" },
   { name: "Black", token: "foreground", cls: "bg-foreground text-background", note: "Primary text · #111111" },
   { name: "White", token: "background", cls: "bg-background border border-border", note: "Main page surface · #FFFFFF" },
