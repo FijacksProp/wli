@@ -1,6 +1,6 @@
 import { ImageIcon } from "lucide-react";
 
-import logoWhite from "@/assets/wisdom-place-logo-white.png.asset.json";
+import logoWhite from "@/assets/wisdom-place-logo-white.png";
 import { cn } from "@/lib/utils";
 
 /** Visible slot for an image that still needs an approved, rights-cleared photo. */
@@ -26,7 +26,7 @@ export function ImagePlaceholder({
     >
       {purple && (
         <img
-          src={logoWhite.url}
+          src={logoWhite}
           alt=""
           aria-hidden
           className="pointer-events-none absolute -right-[12%] -bottom-[18%] w-[85%] max-w-none opacity-[0.07]"
