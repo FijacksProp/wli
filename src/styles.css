@@ -1,0 +1,245 @@
+/*
+ * Tailwind v4 entry: config lives here, with no tailwind.config.js or PostCSS plugin.
+ * - Keep every @import in this top block, above @theme and the rest of the file. Install an
+ *   npm package before @importing its CSS. Never @import a remote URL (web fonts, CDN CSS): the
+ *   build resolves @import from the filesystem. Load those with a <link> in the head() of
+ *   src/routes/__root.tsx and name the family in a --font-* token in @theme inline below.
+ */
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * WLI design system
+ * - Brand purple is sampled from the Wisdom Place logo (#8201CF), with white and black as supporting colors.
+ * - Purple is the primary brand color; white and black support surfaces and text.
+ * - Display: Newsreader (editorial serif). Body/UI: Public Sans.
+ */
+
+@theme inline {
+  --font-display: "Newsreader", ui-serif, Georgia, serif;
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  --color-purple: var(--purple);
+  --color-purple-deep: var(--purple-deep);
+  --color-purple-foreground: var(--purple-foreground);
+  --color-purple-muted: var(--purple-muted);
+  --color-brand-purple: var(--brand-purple);
+  --color-tint: var(--tint);
+  --color-placeholder: var(--placeholder);
+  --color-placeholder-foreground: var(--placeholder-foreground);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* Surfaces */
+  --background: #ffffff;
+  --foreground: #111111;
+  --card: oklch(1 0 0);
+  --card-foreground: #111111;
+  --popover: oklch(1 0 0);
+  --popover-foreground: #111111;
+  --tint: #f8f1fc;
+
+  /* Brand */
+  --purple: #8201cf; /* Wisdom Place logo purple */
+  --purple-deep: #510080;
+  --purple-foreground: #ffffff;
+  --purple-muted: #e4c8f4;
+  --primary: #8201cf; /* logo purple; white text meets contrast */
+  --primary-hover: #6500a3;
+  --primary-foreground: #ffffff;
+  --brand-purple: #8201cf;
+
+  --secondary: #f3e8fa;
+  --secondary-foreground: #111111;
+  --muted: #f8f5fa;
+  --muted-foreground: #38313d;
+  --accent: #eee0f7;
+  --accent-foreground: #111111;
+
+  --destructive: #510080;
+  --destructive-foreground: #ffffff;
+  --success: #510080;
+  --success-foreground: #ffffff;
+
+  --placeholder: #f3e8fa;
+  --placeholder-foreground: #510080;
+
+  --border: #e3dce8;
+  --input: #b9aabe;
+  --ring: #8201cf;
+
+  --chart-1: #8201cf;
+  --chart-2: #111111;
+  --chart-3: #510080;
+  --chart-4: #bd83e0;
+  --chart-5: #e4c8f4;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #111111;
+  --sidebar-primary: #8201cf;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f3e8fa;
+  --sidebar-accent-foreground: #111111;
+  --sidebar-border: #e3dce8;
+  --sidebar-ring: #8201cf;
+}
+
+.dark {
+  --background: #111111;
+  --foreground: #ffffff;
+  --card: #1b1b1b;
+  --card-foreground: #ffffff;
+  --popover: #1b1b1b;
+  --popover-foreground: #ffffff;
+  --tint: #29232d;
+  --primary: #8201cf;
+  --primary-hover: #a745df;
+  --primary-foreground: #ffffff;
+  --secondary: #33243f;
+  --secondary-foreground: #ffffff;
+  --muted: #29232d;
+  --muted-foreground: #e4c8f4;
+  --accent: #33243f;
+  --accent-foreground: #ffffff;
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 20%);
+  --ring: #a745df;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-accent-foreground);
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 76rem;
+  padding-inline: 1.25rem;
+  @media (min-width: 640px) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  &::before {
+    content: "";
+    width: 1.5rem;
+    height: 2px;
+    background: var(--color-brand-purple);
+  }
+}
+
+@utility page-enter {
+  animation: page-enter 260ms ease-out both;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
