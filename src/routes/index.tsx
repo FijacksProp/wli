@@ -32,8 +32,8 @@ function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="container-page grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-12 lg:gap-12 lg:py-24">
+      <section className="ambient-hero relative isolate overflow-hidden">
+        <div className="container-page relative z-10 grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-12 lg:gap-12 lg:py-24">
           <div className="lg:col-span-7">
             <p className="eyebrow">{ORG.tagline}</p>
             <h1 className="mt-5 text-[2.6rem] leading-[1.02] font-medium text-foreground sm:text-6xl lg:text-[4.5rem]">
