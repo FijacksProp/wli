@@ -85,12 +85,7 @@ export function SiteFooter() {
           <p>
             © {new Date().getFullYear()} {ORG.name} ({ORG.alias}). All rights reserved.
           </p>
-          <p>
-            Forms on this site are prototypes and are not yet connected. ·{" "}
-            <Link to="/style-guide" className="underline underline-offset-4 hover:text-purple-foreground">
-              Design system
-            </Link>
-          </p>
+          <p>{ORG.tagline}</p>
         </div>
       </div>
     </footer>
