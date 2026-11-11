@@ -93,7 +93,7 @@ function WhatWeDoPage() {
         </div>
       </div>
 
-      <section className="bg-purple text-purple-foreground">
+      <section className="bg-purple-deep text-purple-foreground">
         <div className="container-page flex flex-col items-start justify-between gap-6 py-14 md:flex-row md:items-center">
           <h2 className="max-w-xl text-3xl leading-tight font-medium sm:text-4xl">
             Find the program that fits where you are.
