@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const TITLE = "Design system — Wisdom Leadership Initiatives";
-const DESC = "Purple, white and black color tokens, typography, buttons, form states and launch placeholders for the WLI website.";
+const DESC = "A restrained plum, charcoal, white and neutral palette, typography, buttons, form states and launch placeholders for the WLI website.";
 
 export const Route = createFileRoute("/style-guide")({
   head: () => ({
@@ -25,10 +25,10 @@ export const Route = createFileRoute("/style-guide")({
 });
 
 const SWATCHES = [
-  { name: "Logo purple", token: "purple", cls: "bg-purple", note: "Primary brand color · #8201CF" },
-  { name: "Deep purple", token: "purple-deep", cls: "bg-purple-deep", note: "Dark purple surfaces" },
-  { name: "Primary purple", token: "primary", cls: "bg-primary", note: "Buttons and links · #8201CF" },
-  { name: "Purple accent", token: "brand-purple", cls: "bg-brand-purple", note: "Logo purple accent · #8201CF" },
+  { name: "Deep plum", token: "purple", cls: "bg-purple", note: "Headings and restrained brand surfaces · #302536" },
+  { name: "Charcoal plum", token: "purple-deep", cls: "bg-purple-deep", note: "Dark feature panels and footer · #211A25" },
+  { name: "Muted aubergine", token: "primary", cls: "bg-primary", note: "Buttons, links and selected states · #624776" },
+  { name: "Logo purple", token: "brand-purple", cls: "bg-brand-purple", note: "Small identity accent · #8201CF" },
   { name: "Black", token: "foreground", cls: "bg-foreground text-background", note: "Primary text · #111111" },
   { name: "White", token: "background", cls: "bg-background border border-border", note: "Main page surface · #FFFFFF" },
   { name: "Tint", token: "tint", cls: "bg-tint", note: "Alternate section background" },
