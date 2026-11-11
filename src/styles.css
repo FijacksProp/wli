@@ -236,6 +236,36 @@
   }
 }
 
+.ambient-hero::before {
+  position: absolute;
+  z-index: -1;
+  top: -32%;
+  right: -14%;
+  width: min(72vw, 66rem);
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgb(112 64 164 / 10%) 0%, rgb(130 1 207 / 5%) 34%, transparent 70%);
+  filter: blur(18px);
+  pointer-events: none;
+  content: "";
+  animation: ambient-drift 30s ease-in-out infinite alternate;
+}
+
+@keyframes ambient-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(0.96);
+  }
+  to {
+    transform: translate3d(-1.5rem, 1rem, 0) scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-hero::before {
+    animation: none;
+  }
+}
+
 @keyframes page-enter {
   from {
     opacity: 0;
