@@ -36,7 +36,7 @@ function HomePage() {
         <div className="container-page grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-12 lg:gap-12 lg:py-24">
           <div className="lg:col-span-7">
             <p className="eyebrow">{ORG.tagline}</p>
-            <h1 className="mt-5 text-[2.6rem] leading-[1.02] font-medium text-purple sm:text-6xl lg:text-[4.5rem]">
+            <h1 className="mt-5 text-[2.6rem] leading-[1.02] font-medium text-foreground sm:text-6xl lg:text-[4.5rem]">
               Developing principled leaders for <em className="text-primary">positive change.</em>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
@@ -56,7 +56,7 @@ function HomePage() {
           </div>
           <div className="lg:col-span-5">
             <ImagePlaceholder
-              tone="purple"
+              tone="light"
               label="[Hero photo of a WLI program to be supplied]"
               className="aspect-[4/3] w-full sm:aspect-[16/10] lg:aspect-[4/5]"
             />
@@ -89,7 +89,7 @@ function HomePage() {
       {/* Vision + Mission */}
       <section className="container-page py-16 sm:py-24">
         <div className="grid gap-6 lg:grid-cols-12">
-          <div className="relative overflow-hidden rounded-lg bg-purple p-8 text-purple-foreground sm:p-10 lg:col-span-5">
+          <div className="relative overflow-hidden rounded-lg bg-purple-deep p-8 text-purple-foreground sm:p-10 lg:col-span-5">
             <p className="text-xs font-semibold tracking-[0.14em] text-purple-muted uppercase">Our vision</p>
             <blockquote className="mt-6 font-display text-3xl leading-tight sm:text-4xl">“{ORG.vision}”</blockquote>
             <div className="mt-10 h-1 w-12 bg-brand-purple" aria-hidden />
@@ -172,7 +172,7 @@ function HomePage() {
       {/* Get involved + newsletter */}
       <section className="container-page pb-16 sm:pb-24">
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="flex flex-col justify-between rounded-lg bg-primary p-8 text-primary-foreground sm:p-10">
+          <div className="flex flex-col justify-between rounded-lg bg-purple-deep p-8 text-primary-foreground sm:p-10">
             <div>
               <h2 className="text-3xl leading-tight font-medium sm:text-4xl">Partner with us</h2>
               <p className="mt-4 max-w-md leading-relaxed opacity-90">
