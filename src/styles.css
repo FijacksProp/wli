@@ -13,8 +13,8 @@
 
 /*
  * WLI design system
- * - Brand purple is sampled from the Wisdom Place logo (#8201CF), with white and black as supporting colors.
- * - Purple is the primary brand color; white and black support surfaces and text.
+ * - Preserve the logo's purple as a small brand accent; use deep plum, charcoal, white and neutral space for the UI.
+ * - Purple is an accent, not a page-wide surface color.
  * - Display: Newsreader (editorial serif). Body/UI: Public Sans.
  */
 
@@ -87,23 +87,23 @@
   --card-foreground: #111111;
   --popover: oklch(1 0 0);
   --popover-foreground: #111111;
-  --tint: #f8f1fc;
+  --tint: #f7f5f8;
 
   /* Brand */
-  --purple: #8201cf; /* Wisdom Place logo purple */
-  --purple-deep: #510080;
+  --purple: #302536;
+  --purple-deep: #211a25;
   --purple-foreground: #ffffff;
-  --purple-muted: #e4c8f4;
-  --primary: #8201cf; /* logo purple; white text meets contrast */
-  --primary-hover: #6500a3;
+  --purple-muted: #d6cbdc;
+  --primary: #624776;
+  --primary-hover: #49345a;
   --primary-foreground: #ffffff;
   --brand-purple: #8201cf;
 
-  --secondary: #f3e8fa;
+  --secondary: #f0ebf2;
   --secondary-foreground: #111111;
-  --muted: #f8f5fa;
-  --muted-foreground: #38313d;
-  --accent: #eee0f7;
+  --muted: #f7f6f8;
+  --muted-foreground: #5c5660;
+  --accent: #eee8f1;
   --accent-foreground: #111111;
 
   --destructive: #510080;
@@ -111,26 +111,26 @@
   --success: #510080;
   --success-foreground: #ffffff;
 
-  --placeholder: #f3e8fa;
-  --placeholder-foreground: #510080;
+  --placeholder: #f0ebf2;
+  --placeholder-foreground: #49345a;
 
-  --border: #e3dce8;
-  --input: #b9aabe;
-  --ring: #8201cf;
+  --border: #e5e0e7;
+  --input: #bcb5c1;
+  --ring: #624776;
 
-  --chart-1: #8201cf;
-  --chart-2: #111111;
-  --chart-3: #510080;
-  --chart-4: #bd83e0;
-  --chart-5: #e4c8f4;
+  --chart-1: #624776;
+  --chart-2: #211a25;
+  --chart-3: #846b91;
+  --chart-4: #aa97b4;
+  --chart-5: #d6cbdc;
   --sidebar: #ffffff;
   --sidebar-foreground: #111111;
-  --sidebar-primary: #8201cf;
+  --sidebar-primary: #624776;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f3e8fa;
+  --sidebar-accent: #f0ebf2;
   --sidebar-accent-foreground: #111111;
   --sidebar-border: #e3dce8;
-  --sidebar-ring: #8201cf;
+  --sidebar-ring: #624776;
 }
 
 .dark {
@@ -141,14 +141,17 @@
   --popover: #1b1b1b;
   --popover-foreground: #ffffff;
   --tint: #29232d;
-  --primary: #8201cf;
-  --primary-hover: #a745df;
+  --purple: #d6cbdc;
+  --purple-deep: #211a25;
+  --purple-muted: #d6cbdc;
+  --primary: #b59fc0;
+  --primary-hover: #c8b8d0;
   --primary-foreground: #ffffff;
-  --secondary: #33243f;
+  --secondary: #332b38;
   --secondary-foreground: #ffffff;
-  --muted: #29232d;
-  --muted-foreground: #e4c8f4;
-  --accent: #33243f;
+  --muted: #29242b;
+  --muted-foreground: #d6cbdc;
+  --accent: #332b38;
   --accent-foreground: #ffffff;
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 20%);
