@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
-import logoColor from "@/assets/wisdom-place-logo.png.asset.json";
-import logoWhite from "@/assets/wisdom-place-logo-white.png.asset.json";
+import logoColor from "@/assets/wisdom-place-logo.png";
+import logoWhite from "@/assets/wisdom-place-logo-white.png";
 import { cn } from "@/lib/utils";
 
 /** The Wisdom Place logo artwork is used unaltered; the WLI name sits beside it. */
@@ -13,7 +13,7 @@ export function Logo({ inverse = false, className }: { inverse?: boolean; classN
       aria-label="Wisdom Leadership Initiatives — The Wisdom Place, home"
     >
       <img
-        src={inverse ? logoWhite.url : logoColor.url}
+        src={inverse ? logoWhite : logoColor}
         alt=""
         width={inverse ? 640 : 216}
         height={inverse ? 498 : 169}
