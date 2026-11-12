@@ -2,12 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AlertCircle } from "lucide-react";
 
 import { PageHero } from "@/components/site/blocks";
-import { Ph } from "@/components/site/Placeholder";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const TITLE = "Design system — Wisdom Leadership Initiatives";
-const DESC = "A restrained plum, charcoal, white and neutral palette, typography, buttons, form states and launch placeholders for the WLI website.";
+const DESC = "A restrained plum, charcoal, white and neutral palette, typography, buttons, form styling for the WLI website.";
 
 export const Route = createFileRoute("/style-guide")({
   head: () => ({
@@ -34,17 +33,7 @@ const SWATCHES = [
   { name: "Tint", token: "tint", cls: "bg-tint", note: "Alternate section background" },
 ];
 
-const PLACEHOLDERS = [
-  "Hero, organization, program and cover photos (rights-cleared)",
-  "Location (only if needed)",
-  "Impact figures",
-  "Team introduction, names, titles, bios and photos",
-  "The Wisdom Place program: description, format and audience",
-  "Mordecai Project eligibility and support details",
-  "Leadership placement process and details",
-  "Insights (Blog) entries: stories, testimonials, articles, summaries, authors and dates",
-  "Approved, consented program testimonials and Success Scrolls",
-];
+
 
 function StyleGuide() {
   return (
@@ -119,20 +108,9 @@ function StyleGuide() {
           </div>
         </section>
 
-        <section>
-          <h2 className="text-3xl font-medium text-purple">Placeholders to replace before launch</h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Missing content appears on the site like this: <Ph>[To be supplied]</Ph>
-          </p>
-          <ul className="mt-6 grid gap-2 sm:grid-cols-2">
-            {PLACEHOLDERS.map((p) => (
-              <li key={p} className="rounded-md border border-dashed border-input bg-card px-4 py-3 text-sm">
-                {p}
-              </li>
-            ))}
-          </ul>
-        </section>
+
       </div>
     </>
   );
 }
+

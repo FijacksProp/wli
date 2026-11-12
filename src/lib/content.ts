@@ -19,7 +19,6 @@ export const ORG = {
   email: "thewisdomplaceonline@gmail.com",
   phones: ["+2347030278454", "+2348065187048"],
   socials: [{ name: "Facebook", url: "https://web.facebook.com/WisdomLeadershipInitiatives/about/" }],
-  location: "[Location to be confirmed]",
 } as const;
 
 export const NAV = [
@@ -95,7 +94,7 @@ export const SERVICES: ServiceArea[] = [
     title: "Leadership placement opportunities",
     summary: "Recruiting and empowering emerging leaders to help solve pressing societal problems.",
     detail:
-      "We recruit and empower emerging leaders to contribute to positive change in communities, institutions and social systems. [Placement process and details to be confirmed]",
+      "We recruit and empower emerging leaders to contribute to positive change in communities, institutions and social systems.",
   },
   {
     id: "resources",
@@ -140,7 +139,7 @@ export const PROGRAMS: Program[] = [
       "Support for strong character, sound judgment and purposeful leadership",
     ],
     confirmed: true,
-    photoLabel: "[HOI session photo to be supplied]",
+    photoLabel: "House of Insights",
   },
   {
     slug: "next-gen-leadership-conference",
@@ -159,7 +158,7 @@ export const PROGRAMS: Program[] = [
       "Learning to lead yourself and others with confidence and integrity",
     ],
     confirmed: true,
-    photoLabel: "[Conference photo to be supplied]",
+    photoLabel: "Next Gen Leadership Conference",
   },
   {
     slug: "mordecai-project",
@@ -175,22 +174,11 @@ export const PROGRAMS: Program[] = [
     expect: [
       "Educational support for those unable to afford school fees",
       "Wider access to learning and opportunity",
-      "[Eligibility and support details to be confirmed]",
     ],
     confirmed: true,
-    photoLabel: "[Mordecai Project photo to be supplied]",
+    photoLabel: "The Mordecai Project",
   },
-  {
-    slug: "the-wisdom-place",
-    name: "The Wisdom Place",
-    format: "[Format to be confirmed]",
-    summary: "[Program description to be confirmed]",
-    overview: ["[Program description to be confirmed]"],
-    audience: "[Intended audience to be confirmed]",
-    expect: ["[Program details to be confirmed]"],
-    confirmed: false,
-    photoLabel: "[Program photo to be supplied]",
-  },
+
 ];
 
 export const getProgram = (slug: string) => PROGRAMS.find((p) => p.slug === slug);
@@ -200,15 +188,7 @@ export type ResourceCategory =
   | "Program testimonials"
   | "Articles & blog";
 
-export const RESOURCE_CATEGORIES: { id: string; name: ResourceCategory; blurb: string }[] = [
-  { id: "success-scrolls", name: "Success Scrolls", blurb: "Stories of growth from our community." },
-  {
-    id: "testimonials",
-    name: "Program testimonials",
-    blurb: "Reflections from people who have taken part in our programs.",
-  },
-  { id: "articles", name: "Articles & blog", blurb: "Writing on leadership, wisdom and personal growth." },
-];
+export const RESOURCE_CATEGORIES: { id: string; name: ResourceCategory; blurb: string }[] = [];
 
 export type Resource = {
   slug: string;
@@ -218,50 +198,21 @@ export type Resource = {
   meta: string;
 };
 
-export const RESOURCES: Resource[] = [
-  {
-    slug: "success-scroll-1",
-    category: "Success Scrolls",
-    title: "[Success Scroll title to be supplied]",
-    excerpt: "[Approved story summary to be supplied]",
-    meta: "[Date to be supplied]",
-  },
-  {
-    slug: "testimonial-1",
-    category: "Program testimonials",
-    title: "[Approved testimonial to be supplied]",
-    excerpt: "[Participant name, program and consented quote to be supplied]",
-    meta: "[Program to be supplied]",
-  },
-  {
-    slug: "article-1",
-    category: "Articles & blog",
-    title: "[Article title to be supplied]",
-    excerpt: "[Article summary to be supplied]",
-    meta: "[Author · Date to be supplied]",
-  },
-  {
-    slug: "article-2",
-    category: "Articles & blog",
-    title: "[Article title to be supplied]",
-    excerpt: "[Article summary to be supplied]",
-    meta: "[Author · Date to be supplied]",
-  },
-];
+export const RESOURCES: Resource[] = [];
 
 export const BOOKS = [
-  { title: "31 Wisdom Keys", file: "31-wisdom-keys.pdf", source: "31-Wisdom-Keys.pdf" },
-  { title: "The Life Assignment", file: "the-life-assignment.pdf", source: "THE-LIFE-ASSIGNMENT.pdf" },
-  { title: "Wisdom for Living", file: "wisdom-for-living.pdf", source: "Wisdom-for-Living.pdf" },
-  { title: "Times and Seasons of Life", file: "times-and-seasons-of-life.pdf", source: "Times-and-Seasons-of-Life.pdf" },
-  { title: "Confessions over Children", file: "confessions-over-children.pdf", source: "confessions-over-children.pdf" },
-  { title: "Meditations on the Anointing", file: "meditations-on-the-anointing.pdf", source: "Meditations-on-the-Anointing-1.pdf" },
-  { title: "Meditations on Grace", file: "meditations-on-grace.pdf", source: "meditations-on-grace.pdf" },
-  { title: "Meditations on Wisdom", file: "meditations-on-wisdom.pdf", source: "Meditations-on-wisdom.pdf" },
-  { title: "Meditations on Healing and Health", file: "meditations-on-healing-and-health.pdf", source: "Meditations-on-healing-and-health.pdf.pdf" },
-  { title: "Meditations on Favour", file: "meditations-on-favour.pdf", source: "Meditations-on-favour.pdf" },
-  { title: "Meditations on Prosperity", file: "meditations-on-prosperity.pdf", source: "Meditations-on-prosperity-1.pdf" },
-  { title: "Meditations on Selflessness", file: "meditations-on-selflessness.pdf", source: "meditations-on-selflessness-1.pdf" },
+  { title: "31 Wisdom Keys", file: "31-wisdom-keys.pdf" },
+  { title: "The Life Assignment", file: "the-life-assignment.pdf" },
+  { title: "Wisdom for Living", file: "wisdom-for-living.pdf" },
+  { title: "Times and Seasons of Life", file: "times-and-seasons-of-life.pdf" },
+  { title: "Confessions over Children", file: "confessions-over-children.pdf" },
+  { title: "Meditations on the Anointing", file: "meditations-on-the-anointing.pdf" },
+  { title: "Meditations on Grace", file: "meditations-on-grace.pdf" },
+  { title: "Meditations on Wisdom", file: "meditations-on-wisdom.pdf" },
+  { title: "Meditations on Healing and Health", file: "meditations-on-healing-and-health.pdf" },
+  { title: "Meditations on Favour", file: "meditations-on-favour.pdf" },
+  { title: "Meditations on Prosperity", file: "meditations-on-prosperity.pdf" },
+  { title: "Meditations on Selflessness", file: "meditations-on-selflessness.pdf" },
 ] as const;
 
 export const VIDEO_MESSAGES = [
@@ -275,11 +226,4 @@ export const VIDEO_MESSAGES = [
 
 export const getResource = (slug: string) => RESOURCES.find((r) => r.slug === slug);
 
-/** Replace each entry with approved name, title, bio and photo when supplied. */
-export const TEAM = [1, 2, 3, 4].map((n) => ({
-  id: `member-${n}`,
-  name: "[Name to be supplied]",
-  title: "[Title to be supplied]",
-  bio: "[Short bio to be supplied]",
-  photo: null as string | null,
-}));
+

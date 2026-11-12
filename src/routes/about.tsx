@@ -2,10 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
 import { PageHero, SectionHeading } from "@/components/site/blocks";
-import { ImagePlaceholder, Ph } from "@/components/site/Placeholder";
 import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { Button } from "@/components/ui/button";
-import { ORG, TEAM, VALUES } from "@/lib/content";
+import { ORG, VALUES } from "@/lib/content";
 
 const TITLE = "About WLI — Wisdom Leadership Initiatives";
 const DESC =
@@ -153,43 +152,11 @@ function AboutPage() {
               </li>
             ))}
           </ol>
-          <div className="mt-6 rounded-lg border border-dashed border-input bg-card p-6 text-sm">
-            <span className="font-semibold text-purple">Our impact: </span>
-            <Ph>[Impact figures to be supplied]</Ph>
-          </div>
         </div>
       </section>
 
-      {/* Team */}
-      <section className="container-page py-16 sm:py-24">
-        <SectionHeading
-          eyebrow="Our team"
-          title="The people behind WLI"
-          intro={<Ph>[Team introduction to be supplied]</Ph>}
-        />
-        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {TEAM.map((m) => (
-            <li key={m.id}>
-              <ScrollReveal>
-                {m.photo ? (
-                  <img src={m.photo} alt={m.name} className="aspect-[4/5] w-full rounded-lg object-cover" />
-                ) : (
-                  <ImagePlaceholder label="[Team photo to be supplied]" className="aspect-[4/5] w-full" />
-                )}
-                <h3 className="mt-4 font-sans text-base font-semibold">
-                  <Ph>{m.name}</Ph>
-                </h3>
-                <p className="mt-1.5 text-sm">
-                  <Ph>{m.title}</Ph>
-                </p>
-                <p className="mt-2 text-sm">
-                  <Ph>{m.bio}</Ph>
-                </p>
-              </ScrollReveal>
-            </li>
-          ))}
-        </ul>
-      </section>
+
     </>
   );
 }
+

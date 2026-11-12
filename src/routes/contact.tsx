@@ -1,8 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AlertCircle, CheckCircle2, Facebook, Mail, MapPin, Phone } from "lucide-react";
+import { AlertCircle, CheckCircle2, Facebook, Mail, Phone } from "lucide-react";
 import { useRef, useState } from "react";
 
-import { Ph } from "@/components/site/Placeholder";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -136,15 +135,7 @@ function ContactPage() {
               </div>
             </div>
           </li>
-          <li className="flex gap-4">
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-md bg-tint text-primary">
-              <MapPin className="size-5" aria-hidden />
-            </span>
-            <div>
-              <p className="text-xs font-semibold tracking-[0.12em] text-muted-foreground uppercase">Location</p>
-              <p className="mt-1"><Ph>{ORG.location}</Ph></p>
-            </div>
-          </li>
+
         </ul>
       </div>
 
@@ -157,12 +148,7 @@ function ContactPage() {
               </span>
               <h2 className="mt-6 text-3xl font-medium text-purple">Thank you, {values.name.trim().split(" ")[0]}.</h2>
               <p className="mx-auto mt-3 max-w-md text-muted-foreground">
-                Your message passed all checks. This is a prototype form, so nothing has been sent yet —
-                please email{" "}
-                <a href={`mailto:${ORG.email}`} className="font-medium text-primary underline underline-offset-4">
-                  {ORG.email}
-                </a>{" "}
-                directly in the meantime.
+                We appreciate your interest in Wisdom Leadership Initiatives and the time you took to connect with us.
               </p>
               <Button
                 variant="outline"
@@ -262,7 +248,6 @@ function ContactPage() {
               </div>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-xs text-muted-foreground">Prototype form — messages are not yet delivered.</p>
                 <Button type="submit" size="lg" disabled={status === "sending"} className="sm:min-w-44">
                   {status === "sending" ? "Sending…" : "Send message"}
                 </Button>
@@ -317,3 +302,4 @@ function Field({
     </div>
   );
 }
+
