@@ -26,8 +26,8 @@ export const NAV = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About WLI" },
   { to: "/what-we-do", label: "What We Do" },
-  { to: "/programs", label: "Programs" },
-  { to: "/insights", label: "Insights & Resources" },
+  { to: "/programs", label: "Program & Resources" },
+  { to: "/insights", label: "Insights (Blog)" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -102,8 +102,8 @@ export const SERVICES: ServiceArea[] = [
     title: "Leadership resources",
     summary: "Books, articles, blogs and videos for leaders who keep learning.",
     detail:
-      "Our resources extend learning beyond our programs, with books, articles, blogs, audio and video messages on leadership and personal growth.",
-    related: { label: "Insights & Resources", to: "/insights" },
+      "Our resources extend learning beyond our programs with books, articles, blog posts and video messages on leadership and personal growth.",
+    related: { label: "Insights (Blog)", to: "/insights" },
   },
 ];
 
@@ -198,10 +198,7 @@ export const getProgram = (slug: string) => PROGRAMS.find((p) => p.slug === slug
 export type ResourceCategory =
   | "Success Scrolls"
   | "Program testimonials"
-  | "Articles & blog"
-  | "Books"
-  | "Audio messages"
-  | "Video messages";
+  | "Articles & blog";
 
 export const RESOURCE_CATEGORIES: { id: string; name: ResourceCategory; blurb: string }[] = [
   { id: "success-scrolls", name: "Success Scrolls", blurb: "Stories of growth from our community." },
@@ -211,9 +208,6 @@ export const RESOURCE_CATEGORIES: { id: string; name: ResourceCategory; blurb: s
     blurb: "Reflections from people who have taken part in our programs.",
   },
   { id: "articles", name: "Articles & blog", blurb: "Writing on leadership, wisdom and personal growth." },
-  { id: "books", name: "Books", blurb: "Books for leaders who keep learning." },
-  { id: "audio", name: "Audio messages", blurb: "Listen to teaching and conversations on leadership." },
-  { id: "video", name: "Video messages", blurb: "Watch sessions and messages on leadership." },
 ];
 
 export type Resource = {
@@ -222,7 +216,6 @@ export type Resource = {
   title: string;
   excerpt: string;
   meta: string;
-  media?: "audio" | "video";
 };
 
 export const RESOURCES: Resource[] = [
@@ -254,30 +247,31 @@ export const RESOURCES: Resource[] = [
     excerpt: "[Article summary to be supplied]",
     meta: "[Author · Date to be supplied]",
   },
-  {
-    slug: "book-1",
-    category: "Books",
-    title: "[Book title to be supplied]",
-    excerpt: "[Book description to be supplied]",
-    meta: "[Author to be supplied]",
-  },
-  {
-    slug: "audio-1",
-    category: "Audio messages",
-    title: "[Audio message title to be supplied]",
-    excerpt: "[Audio summary to be supplied]",
-    meta: "[Speaker · Length to be supplied]",
-    media: "audio",
-  },
-  {
-    slug: "video-1",
-    category: "Video messages",
-    title: "[Video message title to be supplied]",
-    excerpt: "[Video summary to be supplied]",
-    meta: "[Speaker · Length to be supplied]",
-    media: "video",
-  },
 ];
+
+export const BOOKS = [
+  { title: "31 Wisdom Keys", file: "31-wisdom-keys.pdf", source: "31-Wisdom-Keys.pdf" },
+  { title: "The Life Assignment", file: "the-life-assignment.pdf", source: "THE-LIFE-ASSIGNMENT.pdf" },
+  { title: "Wisdom for Living", file: "wisdom-for-living.pdf", source: "Wisdom-for-Living.pdf" },
+  { title: "Times and Seasons of Life", file: "times-and-seasons-of-life.pdf", source: "Times-and-Seasons-of-Life.pdf" },
+  { title: "Confessions over Children", file: "confessions-over-children.pdf", source: "confessions-over-children.pdf" },
+  { title: "Meditations on the Anointing", file: "meditations-on-the-anointing.pdf", source: "Meditations-on-the-Anointing-1.pdf" },
+  { title: "Meditations on Grace", file: "meditations-on-grace.pdf", source: "meditations-on-grace.pdf" },
+  { title: "Meditations on Wisdom", file: "meditations-on-wisdom.pdf", source: "Meditations-on-wisdom.pdf" },
+  { title: "Meditations on Healing and Health", file: "meditations-on-healing-and-health.pdf", source: "Meditations-on-healing-and-health.pdf.pdf" },
+  { title: "Meditations on Favour", file: "meditations-on-favour.pdf", source: "Meditations-on-favour.pdf" },
+  { title: "Meditations on Prosperity", file: "meditations-on-prosperity.pdf", source: "Meditations-on-prosperity-1.pdf" },
+  { title: "Meditations on Selflessness", file: "meditations-on-selflessness.pdf", source: "meditations-on-selflessness-1.pdf" },
+] as const;
+
+export const VIDEO_MESSAGES = [
+  { title: "Wisdom of Order", id: "NJbDLKS3M1A" },
+  { title: "Wisdom of Automation", id: "mjZdtSNZJl0" },
+  { title: "The Wisdom of Growth", id: "jM9oDbRfxlg" },
+  { title: "The Lifted Ark — Kingdom Mindset", id: "oxVdUvL2u80" },
+  { title: "Shut in the Ark", id: "AufOtqZf3Lk" },
+  { title: "The Lifted Ark", id: "xEFDkzUTd1k" },
+] as const;
 
 export const getResource = (slug: string) => RESOURCES.find((r) => r.slug === slug);
 

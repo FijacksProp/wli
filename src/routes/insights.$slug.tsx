@@ -15,7 +15,7 @@ export const Route = createFileRoute("/insights/$slug")({
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [{ title: "Resource not found — WLI" }, { name: "robots", content: "noindex" }] };
     const { resource } = loaderData;
-    const title = `${resource.category} — WLI Insights & Resources`;
+    const title = `${resource.category} — WLI Insights (Blog)`;
     const desc = `${resource.category} from Wisdom Leadership Initiatives (The Wisdom Place).`;
     return {
       meta: [
@@ -46,7 +46,7 @@ function ResourceDetail() {
               to="/insights"
               className="inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-primary hover:text-primary-hover hover:underline underline-offset-4"
             >
-              <ArrowLeft className="size-4" aria-hidden /> Insights & Resources
+              <ArrowLeft className="size-4" aria-hidden /> Insights (Blog)
             </Link>
             <p className="mt-6 flex items-center gap-2 text-xs font-semibold tracking-[0.12em] text-primary uppercase">
               <ResourceIcon category={resource.category} className="size-4" />

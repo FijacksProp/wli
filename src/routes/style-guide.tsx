@@ -42,7 +42,7 @@ const PLACEHOLDERS = [
   "The Wisdom Place program: description, format and audience",
   "Mordecai Project eligibility and support details",
   "Leadership placement process and details",
-  "All Insights & Resources entries: titles, summaries, body text, authors, dates, audio and video",
+  "Insights (Blog) entries: stories, testimonials, articles, summaries, authors and dates",
   "Approved, consented program testimonials and Success Scrolls",
 ];
 

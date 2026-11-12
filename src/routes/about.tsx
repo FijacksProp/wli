@@ -59,7 +59,11 @@ function AboutPage() {
       {/* Who we are */}
       <section className="container-page grid gap-10 py-16 sm:py-24 lg:grid-cols-12 lg:gap-16">
         <ScrollReveal className="lg:col-span-5">
-          <ImagePlaceholder label="[Organization photo to be supplied]" className="aspect-[4/5] w-full" />
+          <img
+            src="/images/about-who-we-are.jpg"
+            alt="A person studying and writing beside an open book, with their face out of frame"
+            className="aspect-[4/5] w-full rounded-lg object-cover"
+          />
         </ScrollReveal>
         <ScrollReveal className="lg:col-span-7 lg:pt-6" delay={90}>
           <SectionHeading eyebrow="Who we are" title="Leaders who lead themselves well can lead change." />

@@ -39,7 +39,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <Button asChild className="hidden sm:inline-flex">
-            <Link to="/programs">Explore Programs</Link>
+                  <Link to="/programs">Explore Resources</Link>
           </Button>
 
           <Sheet open={open} onOpenChange={setOpen}>
@@ -72,7 +72,7 @@ export function SiteHeader() {
               <div className="border-t border-border p-6">
                 <Button asChild size="lg" className="w-full">
                   <Link to="/programs" onClick={() => setOpen(false)}>
-                    Explore Programs
+                    Explore Resources
                   </Link>
                 </Button>
                 <a

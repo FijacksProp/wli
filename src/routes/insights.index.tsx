@@ -4,9 +4,8 @@ import { PageHero, ResourceCard, ResourceIcon } from "@/components/site/blocks";
 import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { RESOURCE_CATEGORIES, RESOURCES } from "@/lib/content";
 
-const TITLE = "Insights & Resources — Wisdom Leadership Initiatives";
-const DESC =
-  "Success Scrolls, program testimonials, articles, books, audio and video messages on leadership and personal growth from WLI.";
+const TITLE = "Insights (Blog) — Wisdom Leadership Initiatives";
+const DESC = "Stories, reflections and articles on leadership and personal growth from WLI.";
 
 export const Route = createFileRoute("/insights/")({
   head: () => ({
@@ -26,9 +25,9 @@ function InsightsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Insights & resources"
-        title="Wisdom to keep you growing."
-        intro="Stories, reflections and teaching on leadership — to read, listen to and watch."
+        eyebrow="Insights (blog)"
+        title="Perspectives for leaders who keep growing."
+        intro="Stories, reflections and articles on leadership, wisdom and personal growth."
         imageSrc="/images/insights-hero.jpg"
         imagePosition="center 54%"
       >

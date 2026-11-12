@@ -27,7 +27,7 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   const featured = PROGRAMS.filter((p) => p.confirmed);
-  const insights = ["article-1", "success-scroll-1", "video-1"].map((s) => RESOURCES.find((r) => r.slug === s)).filter((r): r is (typeof RESOURCES)[number] => !!r);
+  const insights = ["article-1", "success-scroll-1", "article-2"].map((s) => RESOURCES.find((r) => r.slug === s)).filter((r): r is (typeof RESOURCES)[number] => !!r);
 
   return (
     <>

@@ -2,15 +2,12 @@ import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   ArrowUpRight,
-  BookOpen,
   Compass,
   FileText,
-  Headphones,
   HeartHandshake,
   Library,
   MessageSquareQuote,
   Mic2,
-  PlayCircle,
   ScrollText,
   Sprout,
   Users,
@@ -189,9 +186,6 @@ const RESOURCE_ICONS: Record<ResourceCategory, typeof Users> = {
   "Success Scrolls": ScrollText,
   "Program testimonials": MessageSquareQuote,
   "Articles & blog": FileText,
-  Books: BookOpen,
-  "Audio messages": Headphones,
-  "Video messages": PlayCircle,
 };
 
 export function ResourceIcon({ category, className }: { category: ResourceCategory; className?: string }) {
