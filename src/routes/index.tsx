@@ -3,7 +3,6 @@ import { ArrowRight } from "lucide-react";
 
 import { ProgramCard, ResourceCard, SectionHeading, ServiceCard } from "@/components/site/blocks";
 import { NewsletterForm } from "@/components/site/NewsletterForm";
-import { ImagePlaceholder } from "@/components/site/Placeholder";
 import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { Button } from "@/components/ui/button";
 import { ORG, PROGRAMS, RESOURCES, SERVICES } from "@/lib/content";
@@ -33,34 +32,35 @@ function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="ambient-hero relative isolate overflow-hidden">
-        <div className="container-page relative z-10 grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-12 lg:gap-12 lg:py-24">
-          <div className="lg:col-span-7">
-            <p className="eyebrow">{ORG.tagline}</p>
-            <h1 className="mt-5 text-[2.6rem] leading-[1.02] font-medium text-foreground sm:text-6xl lg:text-[4.5rem]">
-              Developing principled leaders for <em className="text-primary">positive change.</em>
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              We help young people and community members lead themselves and their societies well —
-              through training, mentoring, conferences, community outreach and resources.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg">
-                <Link to="/programs">
-                  Explore Programs <ArrowRight />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link to="/about">Learn About WLI</Link>
-              </Button>
-            </div>
-          </div>
-          <div className="lg:col-span-5">
-            <ImagePlaceholder
-              tone="light"
-              label="[Hero photo of a WLI program to be supplied]"
-              className="aspect-[4/3] w-full sm:aspect-[16/10] lg:aspect-[4/5]"
-            />
+      <section className="relative isolate flex min-h-[34rem] items-end overflow-hidden bg-purple-deep text-white sm:min-h-[38rem]">
+        <img
+          src="https://images.unsplash.com/photo-1779582994107-c8ceb7a0e3a1?auto=format&fit=crop&fm=jpg&q=85&w=2600"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 z-0 size-full object-cover object-center"
+          fetchPriority="high"
+          decoding="async"
+        />
+        <div aria-hidden="true" className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(20,16,24,0.88)_0%,rgba(20,16,24,0.68)_58%,rgba(20,16,24,0.28)_100%)]" />
+        <div aria-hidden="true" className="absolute inset-0 z-10 bg-gradient-to-t from-[#141018]/75 via-transparent to-[#141018]/10" />
+        <div className="container-page relative z-20 w-full py-16 sm:py-20 lg:py-24">
+          <p className="eyebrow text-white">{ORG.tagline}</p>
+          <h1 className="mt-5 max-w-4xl text-5xl leading-[1.02] font-medium text-white sm:text-6xl lg:text-7xl">
+            Developing principled leaders for <em className="text-[#d8c4e7]">positive change.</em>
+          </h1>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/85 sm:text-xl">
+            Wisdom Leadership Initiatives equips, empowers and deploys leaders who strengthen their
+            communities and help build a better society.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button asChild size="lg">
+              <Link to="/programs">
+                Explore Programs <ArrowRight />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline-inverse">
+              <Link to="/about">Learn About WLI</Link>
+            </Button>
           </div>
         </div>
       </section>
