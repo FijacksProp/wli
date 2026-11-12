@@ -4,7 +4,7 @@ import { ArrowDownToLine, ArrowUpRight, BookOpen, Play } from "lucide-react";
 import { PageHero, ProgramCard } from "@/components/site/blocks";
 import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { Button } from "@/components/ui/button";
-import { BOOKS, PROGRAMS, VIDEO_MESSAGES } from "@/lib/content";
+import { PROGRAMS } from "@/lib/content";
 
 const TITLE = "Program & Resources — Wisdom Leadership Initiatives";
 const DESC =
@@ -63,55 +63,26 @@ function ProgramsPage() {
         )}
       </section>
 
-      <section id="books" className="border-y border-border bg-tint py-16 sm:py-20">
+      <section className="border-y border-border bg-tint py-16 sm:py-20">
         <div className="container-page">
-          <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-            <div>
-              <p className="eyebrow">Reading library</p>
-              <h2 className="mt-3 text-3xl font-medium text-purple sm:text-4xl">Books for a life of growth</h2>
-              <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">Download WLI books and meditation booklets to read at your own pace.</p>
-            </div>
-            <span className="text-sm text-muted-foreground">PDF downloads</span>
+          <p className="eyebrow">Continue learning</p>
+          <h2 className="mt-3 text-3xl font-medium text-purple sm:text-4xl">Resources for your leadership journey</h2>
+          <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">Explore WLI books and video messages, gathered in their own easy-to-browse libraries.</p>
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            <Link to="/books" className="group rounded-lg border border-border bg-card p-7 transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md sm:p-8">
+              <span className="flex items-center justify-between text-primary"><BookOpen className="size-6" aria-hidden /><ArrowUpRight className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden /></span>
+              <h3 className="mt-6 text-2xl font-medium text-purple">Books</h3>
+              <p className="mt-2 leading-relaxed text-muted-foreground">Browse and download WLI books and meditation booklets.</p>
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">Browse books <ArrowDownToLine className="size-4" aria-hidden /></span>
+            </Link>
+            <Link to="/video-messages" className="group rounded-lg border border-border bg-card p-7 transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md sm:p-8">
+              <span className="flex items-center justify-between text-primary"><Play className="size-6" aria-hidden /><ArrowUpRight className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden /></span>
+              <h3 className="mt-6 text-2xl font-medium text-purple">Video messages</h3>
+              <p className="mt-2 leading-relaxed text-muted-foreground">Watch WLI messages on wisdom, growth and purposeful living.</p>
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">Explore videos <Play className="size-4" aria-hidden /></span>
+            </Link>
           </div>
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {BOOKS.map((book) => (
-              <li key={book.file}>
-                <a href={`https://thewisdomplaceonline.com/wp-content/uploads/2025/01/${book.source}`} target="_blank" rel="noreferrer" className="group flex h-full min-h-36 flex-col rounded-lg border border-border bg-card p-6 transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md">
-                  <div className="flex items-center justify-between text-primary">
-                    <BookOpen className="size-5" aria-hidden />
-                    <ArrowDownToLine className="size-4 transition-transform group-hover:translate-y-0.5" aria-hidden />
-                  </div>
-                  <h3 className="mt-5 text-lg font-medium leading-snug text-purple">{book.title}</h3>
-                  <span className="mt-auto pt-3 text-xs font-semibold tracking-wide text-muted-foreground uppercase">Open PDF</span>
-                </a>
-              </li>
-            ))}
-          </ul>
         </div>
-      </section>
-
-      <section id="video-messages" className="container-page py-16 sm:py-20">
-        <div>
-          <p className="eyebrow">Watch and reflect</p>
-          <h2 className="mt-3 text-3xl font-medium text-purple sm:text-4xl">Video messages</h2>
-          <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">Watch WLI messages on wisdom, growth and purposeful living.</p>
-        </div>
-        <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {VIDEO_MESSAGES.map((video) => (
-            <li key={video.id}>
-              <a href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank" rel="noreferrer" className="group block overflow-hidden rounded-lg border border-border bg-card transition-[border-color,box-shadow] hover:border-primary/50 hover:shadow-md">
-                <div className="relative aspect-video overflow-hidden bg-purple-deep">
-                  <img src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`} alt="" aria-hidden="true" loading="lazy" className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
-                  <span className="absolute inset-0 grid place-items-center bg-black/20 text-white"><span className="grid size-12 place-items-center rounded-full bg-white/95 text-primary"><Play className="ml-0.5 size-5 fill-current" aria-hidden /></span></span>
-                </div>
-                <span className="flex items-center justify-between gap-3 p-5">
-                  <span className="font-medium text-purple">{video.title}</span>
-                  <ArrowUpRight className="size-4 shrink-0 text-primary" aria-hidden />
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
       </section>
 
       <section className="border-t border-border bg-tint">

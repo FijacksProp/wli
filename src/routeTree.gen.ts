@@ -11,8 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as BooksRouteImport } from './routes/books'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as StyleGuideRouteImport } from './routes/style-guide'
+import { Route as VideoMessagesRouteImport } from './routes/video-messages'
 import { Route as WhatWeDoRouteImport } from './routes/what-we-do'
 import { Route as InsightsIndexRouteImport } from './routes/insights.index'
 import { Route as InsightsSlugRouteImport } from './routes/insights.$slug'
@@ -29,6 +31,11 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BooksRoute = BooksRouteImport.update({
+  id: '/books',
+  path: '/books',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -37,6 +44,11 @@ const ContactRoute = ContactRouteImport.update({
 const StyleGuideRoute = StyleGuideRouteImport.update({
   id: '/style-guide',
   path: '/style-guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VideoMessagesRoute = VideoMessagesRouteImport.update({
+  id: '/video-messages',
+  path: '/video-messages',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WhatWeDoRoute = WhatWeDoRouteImport.update({
@@ -68,8 +80,10 @@ const ProgramsSlugRoute = ProgramsSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/books': typeof BooksRoute
   '/contact': typeof ContactRoute
   '/style-guide': typeof StyleGuideRoute
+  '/video-messages': typeof VideoMessagesRoute
   '/what-we-do': typeof WhatWeDoRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/programs/$slug': typeof ProgramsSlugRoute
@@ -79,8 +93,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/books': typeof BooksRoute
   '/contact': typeof ContactRoute
   '/style-guide': typeof StyleGuideRoute
+  '/video-messages': typeof VideoMessagesRoute
   '/what-we-do': typeof WhatWeDoRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/programs/$slug': typeof ProgramsSlugRoute
@@ -91,8 +107,10 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/books': typeof BooksRoute
   '/contact': typeof ContactRoute
   '/style-guide': typeof StyleGuideRoute
+  '/video-messages': typeof VideoMessagesRoute
   '/what-we-do': typeof WhatWeDoRoute
   '/insights/$slug': typeof InsightsSlugRoute
   '/programs/$slug': typeof ProgramsSlugRoute
@@ -104,8 +122,10 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/books'
     | '/contact'
     | '/style-guide'
+    | '/video-messages'
     | '/what-we-do'
     | '/insights/$slug'
     | '/programs/$slug'
@@ -115,8 +135,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/books'
     | '/contact'
     | '/style-guide'
+    | '/video-messages'
     | '/what-we-do'
     | '/insights/$slug'
     | '/programs/$slug'
@@ -126,8 +148,10 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/books'
     | '/contact'
     | '/style-guide'
+    | '/video-messages'
     | '/what-we-do'
     | '/insights/$slug'
     | '/programs/$slug'
@@ -138,8 +162,10 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BooksRoute: typeof BooksRoute
   ContactRoute: typeof ContactRoute
   StyleGuideRoute: typeof StyleGuideRoute
+  VideoMessagesRoute: typeof VideoMessagesRoute
   WhatWeDoRoute: typeof WhatWeDoRoute
   InsightsSlugRoute: typeof InsightsSlugRoute
   ProgramsSlugRoute: typeof ProgramsSlugRoute
@@ -163,6 +189,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/books': {
+      id: '/books'
+      path: '/books'
+      fullPath: '/books'
+      preLoaderRoute: typeof BooksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -175,6 +208,13 @@ declare module '@tanstack/react-router' {
       path: '/style-guide'
       fullPath: '/style-guide'
       preLoaderRoute: typeof StyleGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/video-messages': {
+      id: '/video-messages'
+      path: '/video-messages'
+      fullPath: '/video-messages'
+      preLoaderRoute: typeof VideoMessagesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/what-we-do': {
@@ -218,8 +258,10 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BooksRoute: BooksRoute,
   ContactRoute: ContactRoute,
   StyleGuideRoute: StyleGuideRoute,
+  VideoMessagesRoute: VideoMessagesRoute,
   WhatWeDoRoute: WhatWeDoRoute,
   InsightsSlugRoute: InsightsSlugRoute,
   ProgramsSlugRoute: ProgramsSlugRoute,
