@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+﻿import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight, Play } from "lucide-react";
 
 import { PageHero } from "@/components/site/blocks";
@@ -28,7 +28,7 @@ function VideoMessagesPage() {
         eyebrow="Watch and reflect"
         title="Video messages for the leadership journey."
         intro="Watch WLI messages on wisdom, growth and purposeful living. Each video opens on YouTube."
-        imageSrc="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&fm=jpg&q=82&w=2000"
+        imageSrc="https://images.unsplash.com/photo-1633538318310-b9aa2f5cc313?auto=format&fit=crop&fm=jpg&q=82&w=2000"
         imagePosition="center 42%"
       >
         <Button asChild variant="outline" className="mt-8">
@@ -72,3 +72,4 @@ function VideoMessagesPage() {
     </>
   );
 }
+
