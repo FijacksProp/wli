@@ -28,6 +28,8 @@ function BooksPage() {
         eyebrow="Reading library"
         title="Books for a life of wisdom and growth."
         intro="Explore WLI books and meditation booklets for personal reflection and continued learning."
+        imageSrc="https://images.unsplash.com/photo-1733944544317-74cca9d4647f?auto=format&fit=crop&fm=jpg&q=82&w=2000"
+        imagePosition="center 48%"
       >
         <Button asChild variant="outline" className="mt-8">
           <Link to="/programs"><ArrowLeft /> Program & Resources</Link>
@@ -46,9 +48,9 @@ function BooksPage() {
           {BOOKS.map((book) => (
             <li key={book.file}>
               <a
-                href={`https://thewisdomplaceonline.com/wp-content/uploads/2025/01/${book.source}`}
+                href={`/resources/books/${book.file}`}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="group flex h-full min-h-40 flex-col rounded-lg border border-border bg-card p-6 transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
               >
                 <span className="flex items-center justify-between text-primary">
@@ -56,7 +58,7 @@ function BooksPage() {
                   <ArrowDownToLine className="size-4 transition-transform group-hover:translate-y-0.5" aria-hidden />
                 </span>
                 <h3 className="mt-5 text-lg font-medium leading-snug text-purple">{book.title}</h3>
-                <span className="mt-auto pt-4 text-xs font-semibold tracking-wide text-muted-foreground uppercase">Open PDF</span>
+                <span className="mt-auto pt-4 text-xs font-semibold tracking-wide text-muted-foreground uppercase">Read book</span>
               </a>
             </li>
           ))}

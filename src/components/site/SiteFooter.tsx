@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Facebook, Mail, Phone } from "lucide-react";
 
 import { Logo } from "@/components/site/Logo";
-import { NewsletterForm } from "@/components/site/NewsletterForm";
+import { ContactCta } from "@/components/site/ContactCta";
 import { NAV, ORG, PROGRAMS } from "@/lib/content";
 
 export function SiteFooter() {
@@ -48,9 +48,9 @@ export function SiteFooter() {
 
         <div className="md:col-span-12 lg:col-span-4">
           <h2 className="font-display text-2xl">Stay in touch</h2>
-          <p className="mt-2 text-sm text-purple-muted">News on programs, insights and resources.</p>
+          <p className="mt-2 text-sm text-purple-muted">For enquiries, partnerships and program information, get in touch with our team.</p>
           <div className="mt-5">
-            <NewsletterForm inverse />
+            <ContactCta inverse />
           </div>
           <ul className="mt-8 space-y-3 text-sm">
             <li className="flex items-start gap-3">

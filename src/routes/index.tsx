@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
 import { ProgramCard, ResourceCard, SectionHeading, ServiceCard } from "@/components/site/blocks";
-import { NewsletterForm } from "@/components/site/NewsletterForm";
+import { ContactCta } from "@/components/site/ContactCta";
 import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { Button } from "@/components/ui/button";
 import { ORG, PROGRAMS, RESOURCES, SERVICES } from "@/lib/content";
@@ -176,7 +176,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Get involved + newsletter */}
+      {/* Get involved and stay connected */}
       <section className="container-page pb-16 sm:pb-24">
         <div className="grid gap-6 lg:grid-cols-2">
           <div className="flex flex-col justify-between rounded-lg bg-purple-deep p-8 text-primary-foreground sm:p-10">
@@ -191,12 +191,12 @@ function HomePage() {
             </Button>
           </div>
           <div className="rounded-lg border border-border bg-card p-8 sm:p-10">
-            <h2 className="text-3xl leading-tight font-medium text-purple sm:text-4xl">Get our newsletter</h2>
+            <h2 className="text-3xl leading-tight font-medium text-purple sm:text-4xl">Stay connected</h2>
             <p className="mt-4 max-w-md leading-relaxed text-muted-foreground">
-              Updates on programs, events and new resources.
+              For enquiries, partnerships and program information, get in touch with our team.
             </p>
             <div className="mt-6">
-              <NewsletterForm />
+              <ContactCta />
             </div>
           </div>
         </div>

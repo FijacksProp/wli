@@ -28,6 +28,8 @@ function VideoMessagesPage() {
         eyebrow="Watch and reflect"
         title="Video messages for the leadership journey."
         intro="Watch WLI messages on wisdom, growth and purposeful living. Each video opens on YouTube."
+        imageSrc="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&fm=jpg&q=82&w=2000"
+        imagePosition="center 42%"
       >
         <Button asChild variant="outline" className="mt-8">
           <Link to="/programs"><ArrowLeft /> Program & Resources</Link>

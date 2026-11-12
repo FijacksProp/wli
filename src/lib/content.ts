@@ -226,4 +226,3 @@ export const VIDEO_MESSAGES = [
 
 export const getResource = (slug: string) => RESOURCES.find((r) => r.slug === slug);
 
-
