@@ -36,11 +36,11 @@ function WhatWeDoPage() {
         imagePosition="center 66%"
       />
 
-      <div className="container-page grid gap-12 py-16 sm:py-20 lg:grid-cols-12">
-        <nav aria-label="Work areas" className="lg:col-span-3">
+      <div className="container-page grid min-w-0 gap-12 overflow-x-clip py-16 sm:py-20 lg:grid-cols-12">
+        <nav aria-label="Work areas" className="min-w-0 max-w-full lg:col-span-3">
           <div className="lg:sticky lg:top-28">
             <p className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">On this page</p>
-            <ul className="mt-4 flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:gap-0 lg:overflow-visible lg:border-l lg:border-border lg:pb-0">
+            <ul className="mt-4 flex min-w-0 max-w-full gap-2 overflow-x-auto pb-2 lg:flex-col lg:gap-0 lg:overflow-visible lg:border-l lg:border-border lg:pb-0">
               {SERVICES.map((s, i) => (
                 <li key={s.id} className="shrink-0">
                   <a
@@ -56,7 +56,7 @@ function WhatWeDoPage() {
           </div>
         </nav>
 
-        <div className="lg:col-span-9">
+        <div className="min-w-0 lg:col-span-9">
           <ol className="divide-y divide-border">
             {SERVICES.map((s, i) => (
               <li key={s.id} id={s.id} className="scroll-mt-28 py-10 first:pt-0 sm:py-12">
