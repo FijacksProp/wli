@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 
 import { PageHero, ServiceIcon } from "@/components/site/blocks";
 import { Copy } from "@/components/site/Placeholder";
+import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { Button } from "@/components/ui/button";
 import { SERVICES } from "@/lib/content";
 
@@ -31,6 +32,8 @@ function WhatWeDoPage() {
         eyebrow="What we do"
         title="We equip, empower and deploy leaders."
         intro="Six connected areas of work help people grow as leaders — and put that leadership to work in their communities."
+        imageSrc="/images/what-we-do-hero.jpg"
+        imagePosition="center 66%"
       />
 
       <div className="container-page grid gap-12 py-16 sm:py-20 lg:grid-cols-12">
@@ -57,36 +60,38 @@ function WhatWeDoPage() {
           <ol className="divide-y divide-border">
             {SERVICES.map((s, i) => (
               <li key={s.id} id={s.id} className="scroll-mt-28 py-10 first:pt-0 sm:py-12">
-                <div className="grid gap-6 sm:grid-cols-[4rem_1fr]">
-                  <span className="flex size-14 items-center justify-center rounded-lg bg-tint text-primary">
-                    <ServiceIcon id={s.id} className="size-6" />
-                  </span>
-                  <div>
-                    <p className="font-display text-sm text-muted-foreground tabular-nums">0{i + 1}</p>
-                    <h2 className="mt-1 text-3xl leading-tight font-medium text-purple sm:text-4xl">{s.title}</h2>
-                    <p className="mt-4 text-lg leading-relaxed text-foreground/85">{s.summary}</p>
-                    <p className="mt-3 leading-relaxed text-muted-foreground">
-                      <Copy text={s.detail} />
-                    </p>
-                    {s.related && (
-                      <div className="mt-6">
-                        {s.related.slug ? (
-                          <Button asChild variant="outline">
-                            <Link to="/programs/$slug" params={{ slug: s.related.slug }}>
-                              {s.related.label} <ArrowRight />
-                            </Link>
-                          </Button>
-                        ) : (
-                          <Button asChild variant="outline">
-                            <Link to="/insights">
-                              {s.related.label} <ArrowRight />
-                            </Link>
-                          </Button>
-                        )}
-                      </div>
-                    )}
+                <ScrollReveal delay={Math.min(i * 45, 180)}>
+                  <div className="grid gap-6 sm:grid-cols-[4rem_1fr]">
+                    <span className="flex size-14 items-center justify-center rounded-lg bg-tint text-primary">
+                      <ServiceIcon id={s.id} className="size-6" />
+                    </span>
+                    <div>
+                      <p className="font-display text-sm text-muted-foreground tabular-nums">0{i + 1}</p>
+                      <h2 className="mt-1 text-3xl leading-tight font-medium text-purple sm:text-4xl">{s.title}</h2>
+                      <p className="mt-4 text-lg leading-relaxed text-foreground/85">{s.summary}</p>
+                      <p className="mt-3 leading-relaxed text-muted-foreground">
+                        <Copy text={s.detail} />
+                      </p>
+                      {s.related && (
+                        <div className="mt-6">
+                          {s.related.slug ? (
+                            <Button asChild variant="outline">
+                              <Link to="/programs/$slug" params={{ slug: s.related.slug }}>
+                                {s.related.label} <ArrowRight />
+                              </Link>
+                            </Button>
+                          ) : (
+                            <Button asChild variant="outline">
+                              <Link to="/insights">
+                                {s.related.label} <ArrowRight />
+                              </Link>
+                            </Button>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
+                </ScrollReveal>
               </li>
             ))}
           </ol>

@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 
 import { PageHero, SectionHeading } from "@/components/site/blocks";
 import { ImagePlaceholder, Ph } from "@/components/site/Placeholder";
+import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { Button } from "@/components/ui/button";
 import { ORG, TEAM, VALUES } from "@/lib/content";
 
@@ -51,14 +52,16 @@ function AboutPage() {
         eyebrow="About WLI"
         title="Wisdom that builds people — and the societies they lead."
         intro={`${ORG.name} (${ORG.alias}) develops principled leaders who contribute to positive change in communities and society.`}
+        imageSrc="/images/about-hero.jpg"
+        imagePosition="center 52%"
       />
 
       {/* Who we are */}
       <section className="container-page grid gap-10 py-16 sm:py-24 lg:grid-cols-12 lg:gap-16">
-        <div className="lg:col-span-5">
+        <ScrollReveal className="lg:col-span-5">
           <ImagePlaceholder label="[Organization photo to be supplied]" className="aspect-[4/5] w-full" />
-        </div>
-        <div className="lg:col-span-7 lg:pt-6">
+        </ScrollReveal>
+        <ScrollReveal className="lg:col-span-7 lg:pt-6" delay={90}>
           <SectionHeading eyebrow="Who we are" title="Leaders who lead themselves well can lead change." />
           <div className="mt-6 space-y-5 text-lg leading-relaxed text-foreground/85">
             <p>
@@ -77,17 +80,17 @@ function AboutPage() {
               See what we do <ArrowRight />
             </Link>
           </Button>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Vision & mission */}
       <section className="bg-purple-deep text-purple-foreground">
         <div className="container-page grid gap-12 py-16 sm:py-24 lg:grid-cols-2 lg:gap-20">
-          <div>
+          <ScrollReveal>
             <p className="text-xs font-semibold tracking-[0.14em] text-purple-muted uppercase">Vision</p>
             <p className="mt-6 font-display text-3xl leading-tight sm:text-[2.6rem]">“{ORG.vision}”</p>
-          </div>
-          <div>
+          </ScrollReveal>
+          <ScrollReveal delay={100}>
             <p className="text-xs font-semibold tracking-[0.14em] text-purple-muted uppercase">Mission</p>
             <ul className="mt-6 divide-y divide-purple-foreground/15">
               {ORG.mission.map((m, i) => (
@@ -97,7 +100,7 @@ function AboutPage() {
                 </li>
               ))}
             </ul>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -105,19 +108,23 @@ function AboutPage() {
       <section className="container-page py-16 sm:py-24">
         <SectionHeading eyebrow="Core values" title="What guides our work" />
         <div className="mt-12 grid gap-4 lg:grid-cols-3">
-          <div className="rounded-lg border-2 border-brand-purple/30 bg-placeholder/40 p-8 lg:row-span-2">
-            <p className="text-5xl text-brand-purple" lang="he" aria-hidden>
-              חָכְמָה
-            </p>
-            <h3 className="mt-6 text-3xl font-medium text-purple">{chokmah.name}</h3>
-            <p className="mt-4 text-lg leading-relaxed text-foreground/85">{chokmah.body}</p>
-          </div>
+          <ScrollReveal className="lg:row-span-2">
+            <div className="h-full rounded-lg border-2 border-brand-purple/30 bg-placeholder/40 p-8">
+              <p className="text-5xl text-brand-purple" lang="he" aria-hidden>
+                חָכְמָה
+              </p>
+              <h3 className="mt-6 text-3xl font-medium text-purple">{chokmah.name}</h3>
+              <p className="mt-4 text-lg leading-relaxed text-foreground/85">{chokmah.body}</p>
+            </div>
+          </ScrollReveal>
           <div className="grid gap-4 sm:grid-cols-2 lg:col-span-2">
-            {values.map((v) => (
-              <div key={v.name} className="rounded-lg border border-border bg-card p-6">
-                <h3 className="text-xl font-medium text-purple">{v.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{v.body}</p>
-              </div>
+            {values.map((v, i) => (
+              <ScrollReveal key={v.name} delay={(i % 2) * 75}>
+                <div className="h-full rounded-lg border border-border bg-card p-6">
+                  <h3 className="text-xl font-medium text-purple">{v.name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{v.body}</p>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -133,10 +140,12 @@ function AboutPage() {
           />
           <ol className="mt-12 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
             {APPROACH.map((a, i) => (
-              <li key={a.step} className="relative bg-card p-7">
-                <span className="font-display text-sm text-muted-foreground tabular-nums">Step 0{i + 1}</span>
-                <h3 className="mt-3 text-2xl font-medium text-purple">{a.step}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{a.body}</p>
+              <li key={a.step} className="relative bg-card">
+                <ScrollReveal className="h-full p-7" delay={i * 60}>
+                  <span className="font-display text-sm text-muted-foreground tabular-nums">Step 0{i + 1}</span>
+                  <h3 className="mt-3 text-2xl font-medium text-purple">{a.step}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{a.body}</p>
+                </ScrollReveal>
               </li>
             ))}
           </ol>
@@ -157,20 +166,22 @@ function AboutPage() {
         <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {TEAM.map((m) => (
             <li key={m.id}>
-              {m.photo ? (
-                <img src={m.photo} alt={m.name} className="aspect-[4/5] w-full rounded-lg object-cover" />
-              ) : (
-                <ImagePlaceholder label="[Team photo to be supplied]" className="aspect-[4/5] w-full" />
-              )}
-              <h3 className="mt-4 font-sans text-base font-semibold">
-                <Ph>{m.name}</Ph>
-              </h3>
-              <p className="mt-1.5 text-sm">
-                <Ph>{m.title}</Ph>
-              </p>
-              <p className="mt-2 text-sm">
-                <Ph>{m.bio}</Ph>
-              </p>
+              <ScrollReveal>
+                {m.photo ? (
+                  <img src={m.photo} alt={m.name} className="aspect-[4/5] w-full rounded-lg object-cover" />
+                ) : (
+                  <ImagePlaceholder label="[Team photo to be supplied]" className="aspect-[4/5] w-full" />
+                )}
+                <h3 className="mt-4 font-sans text-base font-semibold">
+                  <Ph>{m.name}</Ph>
+                </h3>
+                <p className="mt-1.5 text-sm">
+                  <Ph>{m.title}</Ph>
+                </p>
+                <p className="mt-2 text-sm">
+                  <Ph>{m.bio}</Ph>
+                </p>
+              </ScrollReveal>
             </li>
           ))}
         </ul>

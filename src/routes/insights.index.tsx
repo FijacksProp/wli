@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { PageHero, ResourceCard, ResourceIcon } from "@/components/site/blocks";
+import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { RESOURCE_CATEGORIES, RESOURCES } from "@/lib/content";
 
 const TITLE = "Insights & Resources — Wisdom Leadership Initiatives";
@@ -28,6 +29,8 @@ function InsightsPage() {
         eyebrow="Insights & resources"
         title="Wisdom to keep you growing."
         intro="Stories, reflections and teaching on leadership — to read, listen to and watch."
+        imageSrc="/images/insights-hero.jpg"
+        imagePosition="center 54%"
       >
         <nav aria-label="Resource categories" className="mt-10">
           <ul className="flex flex-wrap gap-2">
@@ -59,8 +62,10 @@ function InsightsPage() {
                   <p className="mt-2 text-muted-foreground">{c.blurb}</p>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2 lg:col-span-8">
-                  {items.map((r) => (
-                    <ResourceCard key={r.slug} resource={r} />
+                  {items.map((r, i) => (
+                    <ScrollReveal key={r.slug} className="h-full" delay={(i % 2) * 85}>
+                      <ResourceCard resource={r} />
+                    </ScrollReveal>
                   ))}
                 </div>
               </div>

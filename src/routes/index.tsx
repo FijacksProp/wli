@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { ProgramCard, ResourceCard, SectionHeading, ServiceCard } from "@/components/site/blocks";
 import { NewsletterForm } from "@/components/site/NewsletterForm";
 import { ImagePlaceholder } from "@/components/site/Placeholder";
+import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { Button } from "@/components/ui/button";
 import { ORG, PROGRAMS, RESOURCES, SERVICES } from "@/lib/content";
 
@@ -123,7 +124,9 @@ function HomePage() {
           </div>
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {SERVICES.map((s, i) => (
-              <ServiceCard key={s.id} service={s} index={i} />
+              <ScrollReveal key={s.id} className="h-full" delay={(i % 3) * 75}>
+                <ServiceCard service={s} index={i} />
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -143,7 +146,9 @@ function HomePage() {
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {featured.map((p, i) => (
-            <ProgramCard key={p.slug} program={p} featured={i === 0} />
+            <ScrollReveal key={p.slug} className="h-full" delay={i * 80}>
+              <ProgramCard program={p} featured={i === 0} />
+            </ScrollReveal>
           ))}
         </div>
       </section>
@@ -162,8 +167,10 @@ function HomePage() {
             </Button>
           </div>
           <div className="mt-12 grid gap-4 md:grid-cols-3">
-            {insights.map((r) => (
-              <ResourceCard key={r.slug} resource={r} />
+            {insights.map((r, i) => (
+              <ScrollReveal key={r.slug} className="h-full" delay={i * 80}>
+                <ResourceCard resource={r} />
+              </ScrollReveal>
             ))}
           </div>
         </div>

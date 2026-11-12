@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { PageHero, ProgramCard } from "@/components/site/blocks";
+import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { Button } from "@/components/ui/button";
 import { PROGRAMS } from "@/lib/content";
 
@@ -32,13 +33,17 @@ function ProgramsPage() {
         eyebrow="Programs"
         title="Programs that grow leaders of character."
         intro="Each program serves a different group — young leaders, secondary school students, and people who need support to keep learning."
+        imageSrc="/images/programs-hero.jpg"
+        imagePosition="center 48%"
       />
 
       <section className="container-page py-16 sm:py-20">
         <h2 className="sr-only">Current programs</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {confirmed.map((p, i) => (
-            <ProgramCard key={p.slug} program={p} featured={i === 0} />
+            <ScrollReveal key={p.slug} className="h-full" delay={(i % 3) * 75}>
+              <ProgramCard program={p} featured={i === 0} />
+            </ScrollReveal>
           ))}
         </div>
 
@@ -47,8 +52,10 @@ function ProgramsPage() {
             <h2 className="text-2xl font-medium text-purple">Also from WLI</h2>
             <p className="mt-2 text-sm text-muted-foreground">Details for these programs are being confirmed.</p>
             <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {pending.map((p) => (
-                <ProgramCard key={p.slug} program={p} />
+              {pending.map((p, i) => (
+                <ScrollReveal key={p.slug} className="h-full" delay={(i % 3) * 75}>
+                  <ProgramCard program={p} />
+                </ScrollReveal>
               ))}
             </div>
           </div>

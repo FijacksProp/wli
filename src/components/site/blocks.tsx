@@ -47,20 +47,61 @@ export function PageHero({
   title,
   intro,
   children,
+  imageSrc,
+  imagePosition = "center",
 }: {
   eyebrow: string;
   title: React.ReactNode;
   intro?: React.ReactNode;
   children?: React.ReactNode;
+  imageSrc?: string;
+  imagePosition?: string;
 }) {
+  const hasImage = Boolean(imageSrc);
+
   return (
-    <section className="border-b border-border bg-tint">
-      <div className="container-page py-14 sm:py-20 lg:py-24">
-        <p className="eyebrow">{eyebrow}</p>
-        <h1 className="mt-4 max-w-4xl text-4xl leading-[1.05] font-medium text-purple sm:text-5xl lg:text-6xl">
+    <section
+      className={cn(
+        "relative isolate overflow-hidden border-b border-border",
+        hasImage ? "page-hero-image min-h-[23rem] bg-purple-deep text-white sm:min-h-[27rem]" : "bg-tint",
+      )}
+    >
+      {imageSrc && (
+        <>
+          <img
+            src={imageSrc}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 z-0 size-full object-cover"
+            style={{ objectPosition: imagePosition }}
+            fetchPriority="high"
+            decoding="async"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(23,18,27,0.78)_0%,rgba(23,18,27,0.78)_100%)] sm:bg-[linear-gradient(90deg,rgba(23,18,27,0.94)_0%,rgba(23,18,27,0.83)_43%,rgba(23,18,27,0.58)_100%)]"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 z-10 bg-gradient-to-t from-[#17121B]/35 via-transparent to-[#17121B]/10"
+          />
+        </>
+      )}
+      <div className="container-page relative z-20 py-14 sm:py-20 lg:py-24">
+        <p className={cn("eyebrow", hasImage && "text-white")}>{eyebrow}</p>
+        <h1
+          className={cn(
+            "mt-4 max-w-3xl text-4xl leading-[1.05] font-medium sm:text-5xl lg:text-6xl",
+            hasImage ? "text-white" : "text-purple",
+          )}
+        >
           {title}
         </h1>
-        {intro && <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">{intro}</p>}
+        {intro && (
+          <p className={cn("mt-6 max-w-2xl text-lg leading-relaxed", hasImage ? "text-white/85" : "text-muted-foreground")}>
+            {intro}
+          </p>
+        )}
         {children}
       </div>
     </section>
