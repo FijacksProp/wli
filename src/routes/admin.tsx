@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import {
   getSavedCrmSession,
   isCrmConfigured,
+  crmConfigurationError,
   listCrmEnquiries,
   signInToCrm,
   signOutFromCrm,
@@ -71,8 +72,7 @@ function AdminPage() {
         <p className="eyebrow">WLI workspace</p>
         <h1 className="mt-4 text-4xl font-medium text-purple">Admin setup required</h1>
         <p className="mt-5 leading-relaxed text-muted-foreground">
-          Add the Supabase project URL and public anon key to the deployment environment, then apply the CRM database migration.
-          Setup instructions are in <code>docs/crm-setup.md</code>.
+          {crmConfigurationError ?? "Add the Supabase project URL and public key, then apply the CRM database migration."} Setup instructions are in <code>docs/crm-setup.md</code>.
         </p>
       </main>
     );

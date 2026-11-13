@@ -4,7 +4,7 @@ The website talks to Supabase Auth and the PostgREST API using the public projec
 
 ## 1. Create the Supabase project
 
-Create a Supabase project for WLI and copy its Project URL and publishable key (or legacy anon key). Add them to a local `.env` file using `.env.example` as the template. Add the same two values to the Vercel project environment variables for Production and Preview, then redeploy.
+Create a Supabase project for WLI and copy its **Project URL** and **publishable key** (or legacy anon key) from the API settings. The URL must be the HTTPS API URL, such as `https://your-project-ref.supabase.co`; do not use the PostgreSQL connection string, database host, or database password here. Add the two values to a local `.env` file using `.env.example` as the template. Add the same two values to the Vercel project environment variables for Production and Preview, then redeploy.
 
 ## 2. Create the CRM tables and policies
 

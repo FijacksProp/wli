@@ -21,9 +21,24 @@ const API_URL = import.meta.env["VITE_SUPABASE_URL"]?.replace(/\/$/, "");
 const ANON_KEY = import.meta.env["VITE_SUPABASE_ANON_KEY"];
 const SESSION_KEY = "wli-crm-session";
 
-export const isCrmConfigured = Boolean(API_URL && ANON_KEY);
+function validateApiUrl(value: string | undefined) {
+  if (!value) return "Add the Supabase Project URL to VITE_SUPABASE_URL.";
+  try {
+    const url = new URL(value);
+    if (url.protocol !== "https:" || url.username || url.password) {
+      return "VITE_SUPABASE_URL must be the HTTPS Project URL from Supabase API settings, not a database connection string.";
+    }
+    return null;
+  } catch {
+    return "VITE_SUPABASE_URL must be the HTTPS Project URL from Supabase API settings.";
+  }
+}
+
+export const crmConfigurationError = validateApiUrl(API_URL) ?? (!ANON_KEY ? "Add the Supabase publishable/anon key to VITE_SUPABASE_ANON_KEY." : null);
+export const isCrmConfigured = crmConfigurationError === null;
 
 function requireConfig() {
+  if (crmConfigurationError) throw new Error(crmConfigurationError);
   if (!API_URL || !ANON_KEY) throw new Error("The WLI contact service is not available right now.");
   return { apiUrl: API_URL, anonKey: ANON_KEY };
 }
