@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ORG } from "@/lib/content";
+import { submitCrmEnquiry } from "@/lib/crm-api";
 import { cn } from "@/lib/utils";
 import { validateContact, type ContactErrors, type ContactValues } from "@/lib/validation";
 
@@ -42,6 +43,7 @@ function ContactPage() {
   const summaryRef = useRef<HTMLDivElement>(null);
   const doneRef = useRef<HTMLDivElement>(null);
   const [showSummary, setShowSummary] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const update = (key: keyof ContactValues, value: string) => {
     const next = { ...values, [key]: value };
@@ -55,7 +57,7 @@ function ContactPage() {
     setErrors((e) => ({ ...e, [key]: all[key] }));
   };
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const all = validateContact(values);
     setErrors(all);
@@ -66,11 +68,16 @@ function ContactPage() {
       return;
     }
     setShowSummary(false);
+    setSubmitError("");
     setStatus("sending");
-    setTimeout(() => {
+    try {
+      await submitCrmEnquiry({ ...values, phone: values.phone.trim() || null });
       setStatus("done");
       requestAnimationFrame(() => doneRef.current?.focus());
-    }, 700);
+    } catch (error) {
+      setStatus("idle");
+      setSubmitError(error instanceof Error ? error.message : "We could not submit your message. Please email WLI directly.");
+    }
   };
 
   const errorList = (Object.keys(errors) as (keyof ContactValues)[]).filter((k) => errors[k]);
@@ -169,6 +176,7 @@ function ContactPage() {
               <p className="mt-2 text-sm text-muted-foreground">
                 Fields marked <span className="font-semibold text-destructive">*</span> are required.
               </p>
+              {submitError && <p role="alert" className="mt-4 rounded-md border border-destructive/30 bg-destructive/5 p-4 text-sm text-destructive">{submitError} <a href={`mailto:${ORG.email}`} className="font-semibold underline">Email us</a>.</p>}
 
               {showSummary && errorList.length > 0 && (
                 <div
