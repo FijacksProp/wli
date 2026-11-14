@@ -90,12 +90,12 @@ function BooksPage() {
                 className="group flex h-full min-h-40 min-w-0 flex-col rounded-lg border border-border bg-card p-6 transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
               >
                 {book.cover_image ? (
-                  <span className="mb-5 grid h-48 place-items-center overflow-hidden rounded-md bg-neutral-50">
+                  <span className="mx-auto mb-5 flex aspect-[3/4] w-full max-w-56 items-center justify-center overflow-hidden rounded-md bg-neutral-50 p-3">
                     <img
                       src={book.cover_image}
                       alt={`${book.title} cover`}
                       loading="lazy"
-                      className="size-full object-contain"
+                      className="max-h-full max-w-full object-contain"
                     />
                   </span>
                 ) : (
@@ -107,7 +107,8 @@ function BooksPage() {
                     />
                   </span>
                 )}
-                <h3 className="mt-5 text-lg font-medium leading-snug text-purple">
+                <h3
+                  className={`${book.cover_image ? "" : "mt-5"} text-lg font-medium leading-snug text-purple`}
                   {book.title}
                 </h3>
                 <span className="mt-auto pt-4 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
