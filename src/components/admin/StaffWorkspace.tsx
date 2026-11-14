@@ -113,7 +113,7 @@ export function StaffWorkspace({
   ];
   return (
     <main className="min-h-[75vh] bg-[#faf9fb]">
-      <div className="container-page py-8 sm:py-10">
+      <div className="container-page min-w-0 py-8 sm:py-10">
         <header className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
           <div>
             <p className="eyebrow">WLI staff workspace</p>
@@ -1209,7 +1209,7 @@ function ResourcesSection({
   const ResourceIcon =
     type === "book" ? BookOpen : type === "audio" ? Headphones : Video;
   return (
-    <section className="pt-7">
+    <section className="min-w-0 max-w-full overflow-x-clip pt-7">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
           <h2 className="text-2xl font-medium text-purple">
@@ -1287,6 +1287,7 @@ function ResourcesSection({
                       title: item.title,
                       description: item.description,
                       cover_image: item.cover_image,
+                      cover_image_path: item.cover_image_path,
                       file_url: uploaded.url,
                       storage_path: uploaded.path,
                       external_url: "",
@@ -1324,13 +1325,13 @@ function ResourcesSection({
           {error}
         </p>
       )}
-      <div className="mt-4 grid gap-3">
+      <div className="mt-4 grid min-w-0 max-w-full gap-3 overflow-hidden">
         {filtered.map((r) => (
           <article
             key={r.id}
-            className="flex flex-col justify-between gap-4 rounded-lg border border-border bg-white p-4 sm:flex-row sm:items-center"
+            className="flex w-full min-w-0 max-w-full flex-col justify-between gap-4 overflow-hidden rounded-lg border border-border bg-white p-4 sm:flex-row sm:items-center"
           >
-            <div className="flex min-w-0 items-center gap-3">
+            <div className="flex min-w-0 flex-1 items-center gap-3 overflow-hidden">
               <span className="grid size-10 shrink-0 place-items-center rounded-md bg-purple-50 text-primary">
                 <ResourceIcon className="size-5" />
               </span>
@@ -1345,7 +1346,7 @@ function ResourcesSection({
                 </p>
               </div>
             </div>
-            <div className="flex shrink-0 gap-2">
+            <div className="flex shrink-0 gap-2 self-end sm:self-auto">
               <Button variant="outline" onClick={() => setEditing(r)}>
                 Edit
               </Button>
@@ -1363,12 +1364,16 @@ function ResourcesSection({
                   try {
                     await deleteResource(session, r.id);
                     onRefresh();
-                    if (r.storage_path) {
+                    const uploadedPaths = [
+                      r.storage_path,
+                      r.cover_image_path,
+                    ].filter(Boolean);
+                    for (const path of uploadedPaths) {
                       try {
-                        await deleteContentFile(session, r.storage_path);
+                        await deleteContentFile(session, path);
                       } catch {
                         setError(
-                          "The resource was deleted, but its uploaded file could not be removed from Storage.",
+                          "The resource was deleted, but one of its uploaded files could not be removed from Storage.",
                         );
                       }
                     }
@@ -1425,6 +1430,9 @@ function ResourceEditor({
   const [title, setTitle] = useState(resource?.title ?? "");
   const [description, setDescription] = useState(resource?.description ?? "");
   const [cover, setCover] = useState(resource?.cover_image ?? "");
+  const [coverImagePath, setCoverImagePath] = useState(
+    resource?.cover_image_path ?? "",
+  );
   const [fileUrl, setFileUrl] = useState(resource?.file_url ?? "");
   const [storagePath, setStoragePath] = useState(resource?.storage_path ?? "");
   const [externalUrl, setExternalUrl] = useState(resource?.external_url ?? "");
@@ -1443,6 +1451,21 @@ function ResourceEditor({
     const uploaded = await uploadContentFile(session, file, "resources");
     setFileUrl(uploaded.url);
     setStoragePath(uploaded.path);
+  };
+  const chooseCoverImage = async (file: File) => {
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "image/avif",
+    ];
+    if (!allowedTypes.includes(file.type))
+      throw new Error("Choose a JPG, PNG, WebP, or AVIF image.");
+    if (file.size > 10 * 1024 * 1024)
+      throw new Error("Cover images must be 10 MB or smaller.");
+    const uploaded = await uploadContentFile(session, file, "covers");
+    setCover(uploaded.url);
+    setCoverImagePath(uploaded.path);
   };
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/50 p-3">
@@ -1465,6 +1488,7 @@ function ResourceEditor({
               title: title.trim(),
               description: description.trim(),
               cover_image: cover,
+              cover_image_path: coverImagePath,
               file_url: type === "video" ? "" : fileUrl,
               storage_path: type === "video" ? "" : storagePath,
               external_url: type === "video" ? externalUrl.trim() : "",
@@ -1472,6 +1496,11 @@ function ResourceEditor({
               sort_order: resource?.sort_order ?? 0,
             });
             if (!saved) throw new Error("The resource could not be saved.");
+            if (
+              resource?.cover_image_path &&
+              resource.cover_image_path !== coverImagePath
+            )
+              await deleteContentFile(session, resource.cover_image_path);
             if (resource?.storage_path && resource.storage_path !== storagePath)
               await deleteContentFile(session, resource.storage_path);
             onSaved();
@@ -1581,16 +1610,58 @@ function ResourceEditor({
             </p>
           </>
         )}
-        <label className="block text-sm font-semibold">
-          Cover image URL
-          <Input
-            type="url"
-            value={cover.startsWith("/") ? "" : cover}
-            onChange={(e) => setCover(e.target.value)}
-            className="mt-1"
-            placeholder="Optional https://…"
-          />
-        </label>
+        <div className="space-y-2">
+          <label className="block text-sm font-semibold">
+            Cover image
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/avif"
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                setBusy(true);
+                setError("");
+                try {
+                  await chooseCoverImage(file);
+                } catch (reason) {
+                  setError(
+                    reason instanceof Error
+                      ? reason.message
+                      : "Cover image upload failed.",
+                  );
+                } finally {
+                  setBusy(false);
+                  e.target.value = "";
+                }
+              }}
+              className="mt-1 block w-full text-sm"
+            />
+          </label>
+          <label className="block text-sm font-medium">
+            Or use an image URL
+            <Input
+              type="url"
+              value={coverImagePath || cover.startsWith("/") ? "" : cover}
+              onChange={(e) => {
+                setCover(e.target.value);
+                setCoverImagePath("");
+              }}
+              className="mt-1"
+              placeholder="Optional https://…"
+            />
+          </label>
+          {cover && (
+            <img
+              src={cover}
+              alt="Cover image preview"
+              className="h-28 w-44 rounded-md border border-border object-cover"
+            />
+          )}
+          <p className="text-xs text-muted-foreground">
+            Upload a JPG, PNG, WebP, or AVIF image up to 10 MB, or paste an
+            image URL.
+          </p>
+        </div>
         <label className="block text-sm font-medium">
           Visibility
           <select

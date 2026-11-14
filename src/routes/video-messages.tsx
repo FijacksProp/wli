@@ -32,6 +32,7 @@ function VideoMessagesPage() {
       title: video.title,
       description: "",
       cover_image: "",
+      cover_image_path: "",
       file_url: "",
       storage_path: "",
       external_url: `https://www.youtube.com/watch?v=${video.id}`,

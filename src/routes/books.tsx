@@ -32,6 +32,7 @@ function BooksPage() {
       title: book.title,
       description: "",
       cover_image: "",
+      cover_image_path: "",
       file_url: `/resources/books/${book.file}`,
       storage_path: "",
       external_url: "",
@@ -86,15 +87,26 @@ function BooksPage() {
                 href={book.file_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex h-full min-h-40 flex-col rounded-lg border border-border bg-card p-6 transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
+                className="group flex h-full min-h-40 min-w-0 flex-col rounded-lg border border-border bg-card p-6 transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
               >
-                <span className="flex items-center justify-between text-primary">
-                  <BookOpen className="size-5" aria-hidden />
-                  <ArrowDownToLine
-                    className="size-4 transition-transform group-hover:translate-y-0.5"
-                    aria-hidden
-                  />
-                </span>
+                {book.cover_image ? (
+                  <span className="mb-5 grid h-48 place-items-center overflow-hidden rounded-md bg-neutral-50">
+                    <img
+                      src={book.cover_image}
+                      alt={`${book.title} cover`}
+                      loading="lazy"
+                      className="size-full object-contain"
+                    />
+                  </span>
+                ) : (
+                  <span className="flex items-center justify-between text-primary">
+                    <BookOpen className="size-5" aria-hidden />
+                    <ArrowDownToLine
+                      className="size-4 transition-transform group-hover:translate-y-0.5"
+                      aria-hidden
+                    />
+                  </span>
+                )}
                 <h3 className="mt-5 text-lg font-medium leading-snug text-purple">
                   {book.title}
                 </h3>

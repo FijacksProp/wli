@@ -47,6 +47,7 @@ export type WliResource = {
   title: string;
   description: string;
   cover_image: string;
+  cover_image_path: string;
   file_url: string;
   storage_path: string;
   external_url: string;
@@ -341,12 +342,15 @@ export function deleteBlogPost(session: CrmSession, id: string) {
 }
 
 async function hydrateResource(resource: WliResource, token = ANON_KEY) {
-  return resource.storage_path
-    ? {
-        ...resource,
-        file_url: await signContentFile(resource.storage_path, token),
-      }
-    : resource;
+  const [fileUrl, coverImage] = await Promise.all([
+    resource.storage_path
+      ? signContentFile(resource.storage_path, token)
+      : Promise.resolve(resource.file_url),
+    resource.cover_image_path
+      ? signContentFile(resource.cover_image_path, token)
+      : Promise.resolve(resource.cover_image),
+  ]);
+  return { ...resource, file_url: fileUrl, cover_image: coverImage };
 }
 
 export async function listPublishedResources(type: WliResource["type"]) {
@@ -382,6 +386,7 @@ export function saveResource(
       | "title"
       | "description"
       | "cover_image"
+      | "cover_image_path"
       | "file_url"
       | "storage_path"
       | "external_url"
@@ -393,7 +398,8 @@ export function saveResource(
     type: resource.type,
     title: resource.title,
     description: resource.description,
-    cover_image: resource.cover_image,
+    cover_image: resource.cover_image_path ? "" : resource.cover_image,
+    cover_image_path: resource.cover_image_path,
     file_url: resource.storage_path ? "" : resource.file_url,
     storage_path: resource.storage_path,
     external_url: resource.external_url,
