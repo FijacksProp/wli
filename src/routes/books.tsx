@@ -109,6 +109,7 @@ function BooksPage() {
                 )}
                 <h3
                   className={`${book.cover_image ? "" : "mt-5"} text-lg font-medium leading-snug text-purple`}
+                >
                   {book.title}
                 </h3>
                 <span className="mt-auto pt-4 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
