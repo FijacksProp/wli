@@ -97,7 +97,7 @@ function HomePage() {
           </div>
           <div className="lg:col-span-8">
             <p className="font-display text-2xl leading-snug text-purple sm:text-3xl">
-              Wisdom Leadership Initiatives — also known as The Wisdom Place —
+              Wisdom Leadership Initiatives (The Wisdom Place)
               is a non-profit organization focused on developing principled
               leaders who contribute to positive change in their communities and
               society.
