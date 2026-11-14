@@ -201,18 +201,66 @@ export type Resource = {
 export const RESOURCES: Resource[] = [];
 
 export const BOOKS = [
-  { title: "31 Wisdom Keys", file: "31-wisdom-keys.pdf" },
-  { title: "The Life Assignment", file: "the-life-assignment.pdf" },
-  { title: "Wisdom for Living", file: "wisdom-for-living.pdf" },
-  { title: "Times and Seasons of Life", file: "times-and-seasons-of-life.pdf" },
-  { title: "Confessions over Children", file: "confessions-over-children.pdf" },
-  { title: "Meditations on the Anointing", file: "meditations-on-the-anointing.pdf" },
-  { title: "Meditations on Grace", file: "meditations-on-grace.pdf" },
-  { title: "Meditations on Wisdom", file: "meditations-on-wisdom.pdf" },
-  { title: "Meditations on Healing and Health", file: "meditations-on-healing-and-health.pdf" },
-  { title: "Meditations on Favour", file: "meditations-on-favour.pdf" },
-  { title: "Meditations on Prosperity", file: "meditations-on-prosperity.pdf" },
-  { title: "Meditations on Selflessness", file: "meditations-on-selflessness.pdf" },
+  {
+    title: "31 Wisdom Keys",
+    file: "31-wisdom-keys.pdf",
+    category: "books",
+  },
+  {
+    title: "The Life Assignment",
+    file: "the-life-assignment.pdf",
+    category: "books",
+  },
+  {
+    title: "Wisdom for Living",
+    file: "wisdom-for-living.pdf",
+    category: "books",
+  },
+  {
+    title: "Times and Seasons of Life",
+    file: "times-and-seasons-of-life.pdf",
+    category: "books",
+  },
+  {
+    title: "Confessions over Children",
+    file: "confessions-over-children.pdf",
+    category: "meditation_booklets",
+  },
+  {
+    title: "Meditations on the Anointing",
+    file: "meditations-on-the-anointing.pdf",
+    category: "meditation_booklets",
+  },
+  {
+    title: "Meditations on Grace",
+    file: "meditations-on-grace.pdf",
+    category: "meditation_booklets",
+  },
+  {
+    title: "Meditations on Wisdom",
+    file: "meditations-on-wisdom.pdf",
+    category: "meditation_booklets",
+  },
+  {
+    title: "Meditations on Healing and Health",
+    file: "meditations-on-healing-and-health.pdf",
+    category: "meditation_booklets",
+  },
+  {
+    title: "Meditations on Favour",
+    file: "meditations-on-favour.pdf",
+    category: "meditation_booklets",
+  },
+  {
+    title: "Meditations on Prosperity",
+    file: "meditations-on-prosperity.pdf",
+    category: "meditation_booklets",
+  },
+  {
+    title: "Meditations on Selflessness",
+    file: "meditations-on-selflessness.pdf",
+    category: "meditation_booklets",
+  },
 ] as const;
 
 export const VIDEO_MESSAGES = [

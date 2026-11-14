@@ -29,6 +29,7 @@ function VideoMessagesPage() {
     VIDEO_MESSAGES.map((video, index) => ({
       id: video.id,
       type: "video",
+      book_category: "",
       title: video.title,
       description: "",
       cover_image: "",

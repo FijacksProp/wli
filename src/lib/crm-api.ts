@@ -44,6 +44,7 @@ export type BlogPost = {
 export type WliResource = {
   id: string;
   type: "book" | "audio" | "video";
+  book_category: WliBookCategory;
   title: string;
   description: string;
   cover_image: string;
@@ -57,6 +58,12 @@ export type WliResource = {
   created_at: string;
   updated_at: string;
 };
+
+export type WliBookCategory =
+  | ""
+  | "books"
+  | "meditation_booklets"
+  | "bible_teaching_module";
 
 const API_URL = import.meta.env["VITE_SUPABASE_URL"]?.replace(/\/$/, "");
 const ANON_KEY = import.meta.env["VITE_SUPABASE_ANON_KEY"];
@@ -383,6 +390,7 @@ export function saveResource(
     Pick<
       WliResource,
       | "type"
+      | "book_category"
       | "title"
       | "description"
       | "cover_image"
@@ -396,6 +404,7 @@ export function saveResource(
 ) {
   const payload = {
     type: resource.type,
+    book_category: resource.type === "book" ? resource.book_category : "",
     title: resource.title,
     description: resource.description,
     cover_image: resource.cover_image_path ? "" : resource.cover_image,

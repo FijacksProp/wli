@@ -5,11 +5,23 @@ import { useEffect, useState } from "react";
 import { PageHero } from "@/components/site/blocks";
 import { Button } from "@/components/ui/button";
 import { BOOKS } from "@/lib/content";
-import { listPublishedResources, type WliResource } from "@/lib/crm-api";
+import {
+  listPublishedResources,
+  type WliBookCategory,
+  type WliResource,
+} from "@/lib/crm-api";
 
 const TITLE = "Books — Wisdom Leadership Initiatives";
 const DESC =
   "Read and download books and meditation booklets from Wisdom Leadership Initiatives.";
+const BOOK_SECTIONS: {
+  id: Exclude<WliBookCategory, "">;
+  title: string;
+}[] = [
+  { id: "books", title: "Books" },
+  { id: "meditation_booklets", title: "Meditation Booklets" },
+  { id: "bible_teaching_module", title: "Bible Teaching Module" },
+];
 
 export const Route = createFileRoute("/books")({
   head: () => ({
@@ -29,6 +41,7 @@ function BooksPage() {
     BOOKS.map((book, index) => ({
       id: book.file,
       type: "book",
+      book_category: book.category,
       title: book.title,
       description: "",
       cover_image: "",
@@ -80,46 +93,86 @@ function BooksPage() {
           </div>
           <span className="text-sm text-muted-foreground">PDF downloads</span>
         </div>
-        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {books.map((book) => (
-            <li key={book.id}>
-              <a
-                href={book.file_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex h-full min-h-40 min-w-0 flex-col rounded-lg border border-border bg-card p-6 transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
-              >
-                {book.cover_image ? (
-                  <span className="mx-auto mb-5 flex aspect-[3/4] w-full max-w-56 items-center justify-center overflow-hidden rounded-md bg-neutral-50 p-3">
-                    <img
-                      src={book.cover_image}
-                      alt={`${book.title} cover`}
-                      loading="lazy"
-                      className="max-h-full max-w-full object-contain"
-                    />
-                  </span>
-                ) : (
-                  <span className="flex items-center justify-between text-primary">
-                    <BookOpen className="size-5" aria-hidden />
-                    <ArrowDownToLine
-                      className="size-4 transition-transform group-hover:translate-y-0.5"
-                      aria-hidden
-                    />
-                  </span>
-                )}
-                <h3
-                  className={`${book.cover_image ? "" : "mt-5"} text-lg font-medium leading-snug text-purple`}
-                >
-                  {book.title}
-                </h3>
-                <span className="mt-auto pt-4 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                  Read book
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-10 space-y-14">
+          {BOOK_SECTIONS.map((section) => {
+            const sectionBooks = books.filter(
+              (book) =>
+                (book.book_category || fallbackBookCategory(book.title)) ===
+                section.id,
+            );
+            if (sectionBooks.length === 0) return null;
+            return (
+              <section key={section.id} aria-labelledby={`books-${section.id}`}>
+                <div className="mb-6 border-b border-border pb-4">
+                  <h3
+                    id={`books-${section.id}`}
+                    className="text-2xl font-medium text-purple sm:text-3xl"
+                  >
+                    {section.title}
+                  </h3>
+                </div>
+                <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {sectionBooks.map((book) => (
+                    <li key={book.id}>
+                      <a
+                        href={book.file_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex h-full min-h-40 min-w-0 flex-col rounded-lg border border-border bg-card p-6 transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md"
+                      >
+                        {book.cover_image ? (
+                          <span className="mx-auto mb-5 flex aspect-[3/4] w-full max-w-56 items-center justify-center overflow-hidden rounded-md bg-neutral-50 p-3">
+                            <img
+                              src={book.cover_image}
+                              alt={`${book.title} cover`}
+                              loading="lazy"
+                              className="max-h-full max-w-full object-contain"
+                            />
+                          </span>
+                        ) : (
+                          <span className="flex items-center justify-between text-primary">
+                            <BookOpen className="size-5" aria-hidden />
+                            <ArrowDownToLine
+                              className="size-4 transition-transform group-hover:translate-y-0.5"
+                              aria-hidden
+                            />
+                          </span>
+                        )}
+                        <h4
+                          className={`${book.cover_image ? "" : "mt-5"} text-lg font-medium leading-snug text-purple`}
+                        >
+                          {book.title}
+                        </h4>
+                        <span className="mt-auto pt-4 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                          Read book
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            );
+          })}
+        </div>
       </section>
     </>
   );
+}
+
+function fallbackBookCategory(title: string): Exclude<WliBookCategory, ""> {
+  if (
+    [
+      "31 Wisdom Keys",
+      "The Life Assignment",
+      "Wisdom for Living",
+      "Times and Seasons of Life",
+    ].includes(title)
+  )
+    return "books";
+  if (
+    title === "Confessions over Children" ||
+    title.startsWith("Meditations on ")
+  )
+    return "meditation_booklets";
+  return "bible_teaching_module";
 }
