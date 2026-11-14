@@ -1,11 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, CalendarDays } from "lucide-react";
+import { useEffect, useState } from "react";
 
-import { PageHero, ResourceCard, ResourceIcon } from "@/components/site/blocks";
-import { ScrollReveal } from "@/components/site/ScrollReveal";
-import { RESOURCE_CATEGORIES, RESOURCES } from "@/lib/content";
+import { PageHero } from "@/components/site/blocks";
+import { listPublishedBlogPosts, type BlogPost } from "@/lib/crm-api";
 
 const TITLE = "Insights (Blog) — Wisdom Leadership Initiatives";
-const DESC = "Stories, reflections and articles on leadership and personal growth from WLI.";
+const DESC =
+  "Stories, reflections and articles on leadership and personal growth from WLI.";
 
 export const Route = createFileRoute("/insights/")({
   head: () => ({
@@ -15,13 +17,30 @@ export const Route = createFileRoute("/insights/")({
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: InsightsPage,
 });
 
 function InsightsPage() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    let active = true;
+    listPublishedBlogPosts()
+      .then((items) => {
+        if (active) setPosts(items);
+      })
+      .catch(() => {
+        if (active) setPosts([]);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
   return (
     <>
       <PageHero
@@ -30,48 +49,72 @@ function InsightsPage() {
         intro="Stories, reflections and articles on leadership, wisdom and personal growth."
         imageSrc="/images/insights-hero.jpg"
         imagePosition="center 54%"
-      >
-        <nav aria-label="Resource categories" className="mt-10">
-          <ul className="flex flex-wrap gap-2">
-            {RESOURCE_CATEGORIES.map((c) => (
-              <li key={c.id}>
-                <a
-                  href={`#${c.id}`}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border bg-card px-4 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary active:bg-accent"
-                >
-                  <ResourceIcon category={c.name} className="size-4 text-primary" />
-                  {c.name}
-                </a>
-              </li>
+      />
+      <section className="container-page py-14 sm:py-20">
+        <div className="max-w-2xl">
+          <p className="eyebrow">WLI journal</p>
+          <h2 className="mt-3 text-3xl font-medium text-purple sm:text-4xl">
+            Ideas to carry into your work
+          </h2>
+        </div>
+        {loading ? (
+          <p role="status" className="mt-8 text-sm text-muted-foreground">
+            Loading the latest insights…
+          </p>
+        ) : posts.length ? (
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post) => (
+              <article
+                key={post.id}
+                className="group overflow-hidden rounded-lg border border-border bg-white transition-shadow hover:shadow-md"
+              >
+                {post.cover_image && (
+                  <img
+                    src={post.cover_image}
+                    alt=""
+                    loading="lazy"
+                    className="aspect-[16/9] w-full object-cover"
+                  />
+                )}
+                <div className="p-5">
+                  <p className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <CalendarDays className="size-3.5" aria-hidden />
+                    {post.published_at
+                      ? new Date(post.published_at).toLocaleDateString()
+                      : "WLI Insights"}
+                  </p>
+                  <h3 className="mt-3 text-xl font-medium leading-snug text-purple">
+                    {post.title}
+                  </h3>
+                  <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+                    {post.excerpt}
+                  </p>
+                  <Link
+                    to="/insights/$slug"
+                    params={{ slug: post.slug }}
+                    className="mt-5 inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-primary"
+                  >
+                    Read article{" "}
+                    <ArrowRight
+                      className="size-4 transition-transform group-hover:translate-x-1"
+                      aria-hidden
+                    />
+                  </Link>
+                </div>
+              </article>
             ))}
-          </ul>
-        </nav>
-      </PageHero>
-
-      <div className="container-page divide-y divide-border py-6">
-        {RESOURCE_CATEGORIES.map((c) => {
-          const items = RESOURCES.filter((r) => r.category === c.name);
-          return (
-            <section key={c.id} id={c.id} aria-labelledby={`${c.id}-h`} className="scroll-mt-24 py-12 sm:py-14">
-              <div className="grid gap-8 lg:grid-cols-12">
-                <div className="lg:col-span-4">
-                  <h2 id={`${c.id}-h`} className="text-3xl font-medium text-purple">
-                    {c.name}
-                  </h2>
-                  <p className="mt-2 text-muted-foreground">{c.blurb}</p>
-                </div>
-                <div className="grid gap-4 sm:grid-cols-2 lg:col-span-8">
-                  {items.map((r, i) => (
-                    <ScrollReveal key={r.slug} className="h-full" delay={(i % 2) * 85}>
-                      <ResourceCard resource={r} />
-                    </ScrollReveal>
-                  ))}
-                </div>
-              </div>
-            </section>
-          );
-        })}
-      </div>
+          </div>
+        ) : (
+          <div className="mt-8 rounded-lg border border-dashed border-border p-10 text-center">
+            <p className="font-medium text-foreground">
+              New insights are on the way.
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Check back soon for reflections and resources from WLI.
+            </p>
+          </div>
+        )}
+      </section>
     </>
   );
 }

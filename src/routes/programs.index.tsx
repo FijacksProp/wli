@@ -1,5 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowDownToLine, ArrowUpRight, BookOpen, Play } from "lucide-react";
+import {
+  ArrowDownToLine,
+  ArrowUpRight,
+  BookOpen,
+  Headphones,
+  Play,
+} from "lucide-react";
 
 import { PageHero, ProgramCard } from "@/components/site/blocks";
 import { ScrollReveal } from "@/components/site/ScrollReveal";
@@ -51,10 +57,16 @@ function ProgramsPage() {
         {pending.length > 0 && (
           <div className="mt-16">
             <h2 className="text-2xl font-medium text-purple">Also from WLI</h2>
-            <p className="mt-2 text-sm text-muted-foreground">Details for these programs are being confirmed.</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Details for these programs are being confirmed.
+            </p>
             <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {pending.map((p, i) => (
-                <ScrollReveal key={p.slug} className="h-full" delay={(i % 3) * 75}>
+                <ScrollReveal
+                  key={p.slug}
+                  className="h-full"
+                  delay={(i % 3) * 75}
+                >
                   <ProgramCard program={p} />
                 </ScrollReveal>
               ))}
@@ -66,20 +78,75 @@ function ProgramsPage() {
       <section className="border-y border-border bg-tint py-16 sm:py-20">
         <div className="container-page">
           <p className="eyebrow">Continue learning</p>
-          <h2 className="mt-3 text-3xl font-medium text-purple sm:text-4xl">Resources for your leadership journey</h2>
-          <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">Explore WLI books and video messages, gathered in their own easy-to-browse libraries.</p>
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
-            <Link to="/books" className="group rounded-lg border border-border bg-card p-7 transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md sm:p-8">
-              <span className="flex items-center justify-between text-primary"><BookOpen className="size-6" aria-hidden /><ArrowUpRight className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden /></span>
+          <h2 className="mt-3 text-3xl font-medium text-purple sm:text-4xl">
+            Resources for your leadership journey
+          </h2>
+          <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
+            Explore WLI books, audio messages and videos in their own
+            easy-to-browse libraries.
+          </p>
+          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <Link
+              to="/books"
+              className="group rounded-lg border border-border bg-card p-7 transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md sm:p-8"
+            >
+              <span className="flex items-center justify-between text-primary">
+                <BookOpen className="size-6" aria-hidden />
+                <ArrowUpRight
+                  className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  aria-hidden
+                />
+              </span>
               <h3 className="mt-6 text-2xl font-medium text-purple">Books</h3>
-              <p className="mt-2 leading-relaxed text-muted-foreground">Browse and download WLI books and meditation booklets.</p>
-              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">Browse books <ArrowDownToLine className="size-4" aria-hidden /></span>
+              <p className="mt-2 leading-relaxed text-muted-foreground">
+                Browse and download WLI books and meditation booklets.
+              </p>
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                Browse books <ArrowDownToLine className="size-4" aria-hidden />
+              </span>
             </Link>
-            <Link to="/video-messages" className="group rounded-lg border border-border bg-card p-7 transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md sm:p-8">
-              <span className="flex items-center justify-between text-primary"><Play className="size-6" aria-hidden /><ArrowUpRight className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden /></span>
-              <h3 className="mt-6 text-2xl font-medium text-purple">Video messages</h3>
-              <p className="mt-2 leading-relaxed text-muted-foreground">Watch WLI messages on wisdom, growth and purposeful living.</p>
-              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">Explore videos <Play className="size-4" aria-hidden /></span>
+            <Link
+              to="/audio-messages"
+              className="group rounded-lg border border-border bg-card p-7 transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md sm:p-8"
+            >
+              <span className="flex items-center justify-between text-primary">
+                <Headphones className="size-6" aria-hidden />
+                <ArrowUpRight
+                  className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  aria-hidden
+                />
+              </span>
+              <h3 className="mt-6 text-2xl font-medium text-purple">
+                Audio messages
+              </h3>
+              <p className="mt-2 leading-relaxed text-muted-foreground">
+                Listen to WLI audio messages on wisdom, growth and purposeful
+                living.
+              </p>
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                Listen to audio <Headphones className="size-4" aria-hidden />
+              </span>
+            </Link>
+            <Link
+              to="/video-messages"
+              className="group rounded-lg border border-border bg-card p-7 transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-md sm:p-8"
+            >
+              <span className="flex items-center justify-between text-primary">
+                <Play className="size-6" aria-hidden />
+                <ArrowUpRight
+                  className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  aria-hidden
+                />
+              </span>
+              <h3 className="mt-6 text-2xl font-medium text-purple">
+                Video messages
+              </h3>
+              <p className="mt-2 leading-relaxed text-muted-foreground">
+                Watch WLI messages on wisdom, growth and purposeful living.
+              </p>
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                Explore videos <Play className="size-4" aria-hidden />
+              </span>
             </Link>
           </div>
         </div>
@@ -88,8 +155,13 @@ function ProgramsPage() {
       <section className="border-t border-border bg-tint">
         <div className="container-page flex flex-col items-start justify-between gap-6 py-14 md:flex-row md:items-center">
           <div>
-            <h2 className="text-3xl font-medium text-purple">Not sure where to start?</h2>
-            <p className="mt-2 text-muted-foreground">Tell us a little about yourself and we’ll point you in the right direction.</p>
+            <h2 className="text-3xl font-medium text-purple">
+              Not sure where to start?
+            </h2>
+            <p className="mt-2 text-muted-foreground">
+              Tell us a little about yourself and we’ll point you in the right
+              direction.
+            </p>
           </div>
           <Button asChild size="lg">
             <Link to="/contact">Contact us</Link>

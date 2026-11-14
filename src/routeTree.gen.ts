@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AudioMessagesRouteImport } from './routes/audio-messages'
 import { Route as BooksRouteImport } from './routes/books'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as StyleGuideRouteImport } from './routes/style-guide'
@@ -35,6 +36,11 @@ const AboutRoute = AboutRouteImport.update({
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AudioMessagesRoute = AudioMessagesRouteImport.update({
+  id: '/audio-messages',
+  path: '/audio-messages',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BooksRoute = BooksRouteImport.update({
@@ -87,6 +93,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/audio-messages': typeof AudioMessagesRoute
   '/books': typeof BooksRoute
   '/contact': typeof ContactRoute
   '/style-guide': typeof StyleGuideRoute
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/audio-messages': typeof AudioMessagesRoute
   '/books': typeof BooksRoute
   '/contact': typeof ContactRoute
   '/style-guide': typeof StyleGuideRoute
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/audio-messages': typeof AudioMessagesRoute
   '/books': typeof BooksRoute
   '/contact': typeof ContactRoute
   '/style-guide': typeof StyleGuideRoute
@@ -132,6 +141,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/audio-messages'
     | '/books'
     | '/contact'
     | '/style-guide'
@@ -146,6 +156,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/audio-messages'
     | '/books'
     | '/contact'
     | '/style-guide'
@@ -160,6 +171,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/audio-messages'
     | '/books'
     | '/contact'
     | '/style-guide'
@@ -175,6 +187,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
+  AudioMessagesRoute: typeof AudioMessagesRoute
   BooksRoute: typeof BooksRoute
   ContactRoute: typeof ContactRoute
   StyleGuideRoute: typeof StyleGuideRoute
@@ -207,6 +220,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/audio-messages': {
+      id: '/audio-messages'
+      path: '/audio-messages'
+      fullPath: '/audio-messages'
+      preLoaderRoute: typeof AudioMessagesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/books': {
@@ -279,6 +299,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
+  AudioMessagesRoute: AudioMessagesRoute,
   BooksRoute: BooksRoute,
   ContactRoute: ContactRoute,
   StyleGuideRoute: StyleGuideRoute,
