@@ -243,15 +243,24 @@ function HomePage() {
             <div className="mt-6">
               <ContactCta />
             </div>
-            <a
-              href={ORG.socials.find((social) => social.name === "Instagram")?.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-primary hover:underline"
-            >
-              <Instagram className="size-4" aria-hidden />
-              Follow WLI on Instagram
-            </a>
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+              {ORG.socials.map((social) => {
+                const Icon =
+                  social.name === "Instagram" ? Instagram : Facebook;
+                return (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-primary hover:underline"
+                  >
+                    <Icon className="size-4" aria-hidden />
+                    Follow WLI on {social.name}
+                  </a>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
