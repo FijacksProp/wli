@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, CalendarDays, Instagram } from "lucide-react";
+import { ArrowRight, CalendarDays, Facebook, Instagram } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import {
