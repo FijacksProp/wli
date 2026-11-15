@@ -240,17 +240,17 @@ function Overview({
     },
   ];
   return (
-    <section className="pt-7">
+    <section className="min-w-0 max-w-full overflow-x-clip pt-7">
       <h2 className="text-xl font-semibold">Workspace overview</h2>
       <p className="mt-1 text-sm text-muted-foreground">
         Your latest enquiries and published WLI content.
       </p>
-      <div className="mt-5 grid gap-3 sm:grid-cols-3">
+      <div className="mt-5 grid min-w-0 gap-3 sm:grid-cols-3">
         {counts.map(({ label, value, icon: Icon, section }) => (
           <button
             key={label}
             onClick={() => onNavigate(section)}
-            className="rounded-lg border border-border bg-white p-5 text-left hover:border-primary/50"
+            className="min-w-0 rounded-lg border border-border bg-white p-5 text-left hover:border-primary/50"
           >
             <span className="flex items-center justify-between text-muted-foreground">
               <span className="text-sm">{label}</span>
@@ -260,8 +260,8 @@ function Overview({
           </button>
         ))}
       </div>
-      <div className="mt-8 grid gap-6 lg:grid-cols-2">
-        <div className="rounded-lg border border-border bg-white p-5">
+      <div className="mt-8 grid min-w-0 gap-6 lg:grid-cols-2">
+        <div className="min-w-0 rounded-lg border border-border bg-white p-5">
           <div className="flex justify-between">
             <h3 className="font-semibold">Recent enquiries</h3>
             <button
@@ -274,9 +274,9 @@ function Overview({
           {enquiries.slice(0, 4).map((e) => (
             <div
               key={e.id}
-              className="flex justify-between gap-3 border-b border-border py-3 last:border-0"
+              className="flex min-w-0 justify-between gap-3 border-b border-border py-3 last:border-0"
             >
-              <span className="min-w-0">
+              <span className="min-w-0 flex-1">
                 <span className="block truncate text-sm font-medium">
                   {e.name}
                 </span>
@@ -288,7 +288,7 @@ function Overview({
             </div>
           ))}
         </div>
-        <div className="rounded-lg border border-border bg-white p-5">
+        <div className="min-w-0 rounded-lg border border-border bg-white p-5">
           <div className="flex justify-between">
             <h3 className="font-semibold">Recent content</h3>
             <button
@@ -301,9 +301,11 @@ function Overview({
           {posts.slice(0, 4).map((p) => (
             <div
               key={p.id}
-              className="flex justify-between gap-3 border-b border-border py-3 last:border-0"
+              className="flex min-w-0 justify-between gap-3 border-b border-border py-3 last:border-0"
             >
-              <span className="truncate text-sm font-medium">{p.title}</span>
+              <span className="min-w-0 flex-1 break-words text-sm font-medium">
+                {p.title}
+              </span>
               <StatusBadge status={p.status} />
             </div>
           ))}
@@ -351,7 +353,7 @@ function Enquiries({
     [enquiries, filter, query],
   );
   return (
-    <section className="pt-7">
+    <section className="min-w-0 max-w-full overflow-x-clip pt-7">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
           <h2 className="text-2xl font-medium text-purple">Enquiries</h2>
@@ -607,7 +609,7 @@ function BlogSection({
     `${p.title} ${p.excerpt}`.toLowerCase().includes(query.toLowerCase()),
   );
   return (
-    <section className="pt-7">
+    <section className="min-w-0 max-w-full overflow-x-clip pt-7">
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
           <h2 className="text-2xl font-medium text-purple">Blog</h2>
@@ -624,21 +626,21 @@ function BlogSection({
           {error}
         </p>
       )}
-      <div className="mt-5">
+      <div className="mt-5 min-w-0">
         <Input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search posts"
-          className="h-10 max-w-sm"
+          className="h-10 w-full max-w-sm"
         />
       </div>
-      <div className="mt-4 grid gap-3">
+      <div className="mt-4 grid min-w-0 max-w-full gap-3 overflow-hidden">
         {filtered.map((p) => (
           <article
             key={p.id}
-            className="flex flex-col justify-between gap-4 rounded-lg border border-border bg-white p-4 sm:flex-row sm:items-center"
+            className="flex w-full min-w-0 max-w-full flex-col justify-between gap-4 overflow-hidden rounded-lg border border-border bg-white p-4 sm:flex-row sm:items-center"
           >
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-2">
                 <h3 className="truncate font-semibold">{p.title}</h3>
                 <StatusBadge status={p.status} />
@@ -646,12 +648,12 @@ function BlogSection({
               <p className="mt-1 line-clamp-1 text-sm text-muted-foreground">
                 {p.excerpt || "No excerpt yet"}
               </p>
-              <p className="mt-1 text-xs text-muted-foreground">
+              <p className="mt-1 break-all text-xs text-muted-foreground">
                 Updated {new Date(p.updated_at).toLocaleDateString()} ·
                 /insights/{p.slug}
               </p>
             </div>
-            <div className="flex shrink-0 gap-2">
+            <div className="flex shrink-0 gap-2 self-end sm:self-auto">
               <Button variant="outline" onClick={() => setEditing(p)}>
                 Edit
               </Button>

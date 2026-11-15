@@ -18,7 +18,16 @@ export const ORG = {
     "Wisdom Leadership Initiatives (The Wisdom Place) develops principled leaders who contribute to positive change in their communities and society.",
   email: "thewisdomplaceonline@gmail.com",
   phones: ["+2347030278454", "+2348065187048"],
-  socials: [{ name: "Facebook", url: "https://web.facebook.com/WisdomLeadershipInitiatives/about/" }],
+  socials: [
+    {
+      name: "Facebook",
+      url: "https://web.facebook.com/WisdomLeadershipInitiatives/about/",
+    },
+    {
+      name: "Instagram",
+      url: "https://www.instagram.com/wisdomleadershipinitiatives?cplk=Y2NlN3B3bXJwOWgz",
+    },
+  ],
 } as const;
 
 export const NAV = [

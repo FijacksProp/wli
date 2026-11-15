@@ -1,16 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, CalendarDays } from "lucide-react";
+import { ArrowRight, CalendarDays, Instagram } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import {
   ProgramCard,
   SectionHeading,
-  ServiceCard,
 } from "@/components/site/blocks";
 import { ContactCta } from "@/components/site/ContactCta";
 import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { Button } from "@/components/ui/button";
-import { ORG, PROGRAMS, SERVICES } from "@/lib/content";
+import { ORG, PROGRAMS } from "@/lib/content";
 import { listPublishedBlogPosts, type BlogPost } from "@/lib/crm-api";
 
 const TITLE = "Wisdom Leadership Initiatives — Developing principled leaders";
@@ -142,33 +141,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* What we do */}
-      <section className="bg-tint py-16 sm:py-24">
-        <div className="container-page">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <SectionHeading
-              eyebrow="What we do"
-              title="Six ways we develop leaders"
-              intro="From the classroom to the community, our work strengthens people’s ability to lead themselves and others."
-            />
-            <Button
-              asChild
-              variant="outline"
-              className="self-start md:self-auto"
-            >
-              <Link to="/what-we-do">See all our work</Link>
-            </Button>
-          </div>
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((s, i) => (
-              <ScrollReveal key={s.id} className="h-full" delay={(i % 3) * 75}>
-                <ServiceCard service={s} index={i} />
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Programs */}
       <section className="container-page py-16 sm:py-24">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
@@ -256,8 +228,8 @@ function HomePage() {
                 more leaders grow.
               </p>
             </div>
-            <Button asChild variant="inverse" className="mt-8 self-start">
-              <Link to="/contact">Contact us</Link>
+            <Button disabled variant="inverse" className="mt-8 self-start">
+              Become a Partner
             </Button>
           </div>
           <div className="rounded-lg border border-border bg-card p-8 sm:p-10">
@@ -271,6 +243,15 @@ function HomePage() {
             <div className="mt-6">
               <ContactCta />
             </div>
+            <a
+              href={ORG.socials.find((social) => social.name === "Instagram")?.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-primary hover:underline"
+            >
+              <Instagram className="size-4" aria-hidden />
+              Follow WLI on Instagram
+            </a>
           </div>
         </div>
       </section>

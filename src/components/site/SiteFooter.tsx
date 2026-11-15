@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Mail, Phone } from "lucide-react";
+import { Facebook, Instagram, Mail, Phone } from "lucide-react";
 
 import { Logo } from "@/components/site/Logo";
 import { ContactCta } from "@/components/site/ContactCta";
@@ -71,7 +71,11 @@ export function SiteFooter() {
             </li>
             {ORG.socials.map((social) => (
               <li key={social.name} className="flex items-start gap-3">
-                <Facebook className="mt-0.5 size-4 shrink-0 text-purple-muted" aria-hidden />
+                {social.name === "Instagram" ? (
+                  <Instagram className="mt-0.5 size-4 shrink-0 text-purple-muted" aria-hidden />
+                ) : (
+                  <Facebook className="mt-0.5 size-4 shrink-0 text-purple-muted" aria-hidden />
+                )}
                 <a href={social.url} target="_blank" rel="noopener noreferrer" className="hover:underline underline-offset-4">
                   {social.name}
                 </a>
