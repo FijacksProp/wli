@@ -1,16 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, CalendarDays, Facebook, Instagram } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowRight, Facebook, Instagram } from "lucide-react";
 
-import {
-  ProgramCard,
-  SectionHeading,
-} from "@/components/site/blocks";
+import { SectionHeading } from "@/components/site/blocks";
 import { ContactCta } from "@/components/site/ContactCta";
-import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { Button } from "@/components/ui/button";
-import { ORG, PROGRAMS } from "@/lib/content";
-import { listPublishedBlogPosts, type BlogPost } from "@/lib/crm-api";
+import { ORG } from "@/lib/content";
 
 const TITLE = "Wisdom Leadership Initiatives — Developing principled leaders";
 const DESC =
@@ -31,20 +25,6 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-  const featured = PROGRAMS.filter((p) => p.confirmed);
-  const [insights, setInsights] = useState<BlogPost[]>([]);
-  useEffect(() => {
-    let active = true;
-    listPublishedBlogPosts()
-      .then((posts) => {
-        if (active) setInsights(posts.slice(0, 3));
-      })
-      .catch(() => {});
-    return () => {
-      active = false;
-    };
-  }, []);
-
   return (
     <>
       {/* Hero */}
@@ -138,80 +118,6 @@ function HomePage() {
               ))}
             </ol>
           </div>
-        </div>
-      </section>
-
-      {/* Programs */}
-      <section className="container-page py-16 sm:py-24">
-        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading
-            eyebrow="Featured programs"
-            title="Programs for every stage of leadership"
-            intro="Distinct offerings for young leaders, students and those who need support to keep learning."
-          />
-          <Button asChild className="self-start md:self-auto">
-            <Link to="/programs">Explore Programs</Link>
-          </Button>
-        </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {featured.map((p, i) => (
-            <ScrollReveal key={p.slug} className="h-full" delay={i * 80}>
-              <ProgramCard program={p} featured={i === 0} />
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
-
-      {/* Insights */}
-      <section className="border-t border-border py-16 sm:py-24">
-        <div className="container-page">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <SectionHeading
-              eyebrow="Insights & resources"
-              title="Keep learning between programs"
-              intro="Articles, Success Scrolls, books, audio and video messages on leadership and personal growth."
-            />
-            <Button
-              asChild
-              variant="outline"
-              className="self-start md:self-auto"
-            >
-              <Link to="/insights">Browse all insights</Link>
-            </Button>
-          </div>
-          {insights.length ? (
-            <div className="mt-12 grid gap-4 md:grid-cols-3">
-              {insights.map((post, i) => (
-                <ScrollReveal key={post.id} className="h-full" delay={i * 80}>
-                  <article className="h-full rounded-lg border border-border bg-card p-6">
-                    {post.published_at && (
-                      <p className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <CalendarDays className="size-3.5" />
-                        {new Date(post.published_at).toLocaleDateString()}
-                      </p>
-                    )}
-                    <h3 className="mt-3 text-xl font-medium leading-snug text-purple">
-                      {post.title}
-                    </h3>
-                    <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
-                      {post.excerpt}
-                    </p>
-                    <Link
-                      to="/insights/$slug"
-                      params={{ slug: post.slug }}
-                      className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary"
-                    >
-                      Read article <ArrowRight className="size-4" />
-                    </Link>
-                  </article>
-                </ScrollReveal>
-              ))}
-            </div>
-          ) : (
-            <p className="mt-8 text-sm text-muted-foreground">
-              New insights are on the way.
-            </p>
-          )}
         </div>
       </section>
 
