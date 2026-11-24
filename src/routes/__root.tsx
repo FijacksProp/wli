@@ -153,7 +153,7 @@ function InitialPreloader() {
       setVisible(false);
       return;
     }
-    const timer = window.setTimeout(() => setVisible(false), 620);
+    const timer = window.setTimeout(() => setVisible(false), 3500);
     return () => window.clearTimeout(timer);
   }, []);
   if (!visible) return null;
