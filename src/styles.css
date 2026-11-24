@@ -271,7 +271,7 @@
   display: grid;
   place-items: center;
   background: #fff;
-  animation: preloader-fade-out 220ms ease 400ms both;
+  animation: preloader-fade-out 220ms ease 2780ms both;
   pointer-events: none;
 }
 
