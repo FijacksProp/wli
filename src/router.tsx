@@ -10,8 +10,11 @@ export const getRouter = () => {
     routeTree,
     context: { queryClient },
     scrollRestoration: true,
+    defaultViewTransition: true,
     // Lets Query own freshness; set caching defaults on the QueryClient, not the router.
     defaultPreloadStaleTime: 0,
+    defaultPreload: "intent",
+    defaultPreloadDelay: 50,
   });
 
   return router;

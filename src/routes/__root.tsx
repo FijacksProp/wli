@@ -148,18 +148,24 @@ function RootComponent() {
 
 function InitialPreloader() {
   const [visible, setVisible] = useState(true);
+  const [exiting, setExiting] = useState(false);
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setVisible(false);
       return;
     }
-    const timer = window.setTimeout(() => setVisible(false), 3000);
-    return () => window.clearTimeout(timer);
+    const exitTimer = window.setTimeout(() => setExiting(true), 2400);
+    const removeTimer = window.setTimeout(() => setVisible(false), 2900);
+    return () => {
+      window.clearTimeout(exitTimer);
+      window.clearTimeout(removeTimer);
+    };
   }, []);
   if (!visible) return null;
   return (
     <div
       className="initial-preloader"
+      data-exiting={exiting ? "true" : undefined}
       role="status"
       aria-live="polite"
       aria-label="Loading Wisdom Leadership Initiatives"

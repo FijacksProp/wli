@@ -271,14 +271,32 @@
   display: grid;
   place-items: center;
   background: #fff;
-  animation: preloader-fade-out 220ms ease 2780ms both;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 500ms ease,
+    visibility 0s linear 500ms;
   pointer-events: none;
 }
+
+.initial-preloader[data-exiting="true"] {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.initial-preloader[data-exiting="true"] .initial-preloader__brand {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.98);
+  transition:
+    opacity 500ms ease,
+    transform 500ms ease;
+}
+
 
 .initial-preloader__brand {
   display: grid;
   justify-items: center;
-  gap: 1.5rem;
+  gap: 0.5rem;
   animation: preloader-rise 420ms ease both;
 }
 
@@ -319,10 +337,65 @@
   }
 }
 
-@keyframes preloader-fade-out {
+.navigation-progress {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 100ms ease;
+}
+
+.navigation-progress[data-active="true"] {
+  opacity: 1;
+}
+
+.navigation-progress > span {
+  display: block;
+  width: 35%;
+  height: 100%;
+  background: var(--color-primary);
+  transform: translateX(-110%);
+}
+
+.navigation-progress[data-active="true"] > span {
+  animation: navigation-progress 900ms cubic-bezier(0.2, 0.7, 0.2, 1) infinite;
+}
+
+@keyframes navigation-progress {
+  from { transform: translateX(-110%); }
+  to { transform: translateX(310%); }
+}
+
+#main {
+  view-transition-name: main-content;
+}
+
+::view-transition-old(main-content) {
+  animation: main-content-out 140ms ease both;
+}
+
+::view-transition-new(main-content) {
+  animation: main-content-in 260ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes main-content-out {
   to {
     opacity: 0;
-    visibility: hidden;
+  }
+}
+
+@keyframes main-content-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.35rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -350,6 +423,27 @@
   .initial-preloader,
   .initial-preloader__brand,
   .initial-preloader__track span {
+    animation: none;
+  }
+
+  .initial-preloader[data-exiting="true"] .initial-preloader__brand {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .initial-preloader {
+    transition: none;
+  }
+
+  ::view-transition-old(main-content),
+  ::view-transition-new(main-content) {
+    animation: none;
+  }
+
+  .navigation-progress,
+  .navigation-progress[data-active="true"] > span {
+    transition: none;
     animation: none;
   }
 }

@@ -16,6 +16,7 @@ import { NAV, ORG } from "@/lib/content";
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const isNavigating = useRouterState({ select: (state) => state.status === "pending" });
   const aboutIsActive = ["/about", "/team"].includes(pathname);
   const desktopLinks = NAV.filter(
     (item) => !["/about", "/team"].includes(item.to),
@@ -23,14 +24,17 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/85">
+      <span className="navigation-progress" data-active={isNavigating ? "true" : undefined} aria-hidden="true">
+        <span />
+      </span>
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-md focus:bg-purple focus:px-4 focus:py-2 focus:text-purple-foreground"
       >
         Skip to content
       </a>
-      <div className="container-page relative flex h-20 items-center justify-between gap-6">
-        <Logo />
+      <div className="container-page relative flex h-20 items-center justify-between gap-3 xl:gap-6">
+        <Logo className="flex-1 xl:flex-none" />
 
         <nav
           aria-label="Primary"
