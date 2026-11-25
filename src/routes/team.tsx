@@ -11,30 +11,33 @@ type TeamMember = {
   name: string;
   role: string;
   image: string;
-  biography: string;
+  biography: string[];
 };
 
 const LEADERSHIP: TeamMember[] = [
   {
     name: "Davids Oluwaseye Ayodele",
-    role: "Founder & Executive Director",
+    role: "Founder and Executive Director",
     image: "/images/team/davids-oluwaseye-ayodele.jpeg",
-    biography:
-      "Davids leads Wisdom Leadership Initiatives. He brings more than a decade of experience in management and leadership development for individuals and organisations, with a focus on strategic leadership, team cohesion and organisational vision.",
+    biography: [
+      "Davids Oluwaseye Ayodele is the Founder and Executive Director at the Wisdom Leadership Initiatives. With more than a decade of experience in Management and Leadership development for individuals and organisations, he brings strategic leadership, team cohesion, and visionary drive to the organisation.",
+    ],
   },
   {
     name: "Dominic Oluwanifemi Deborah",
     role: "Deputy Director",
     image: "/images/team/dominic-oluwanifemi-deborah.jpeg",
-    biography:
-      "Dominic brings administrative experience to WLI’s leadership. She champions community outreach, philanthropy and support for vulnerable groups.",
+    biography: [
+      "Dominic Oluwanifemi Deborah is the Deputy Director at the Wisdom Leadership Initiatives. She brings in her years of experience as an administrator to enhance the leadership of WLI. She contributes to the organisational vision by her passionate drive for community outreaches, philanthropy, charity, and empowering vulnerable groups.",
+    ],
   },
   {
     name: "Mrs David Oluwatoyin Justina",
     role: "Project Coordinator",
     image: "/images/team/oluwatoyin-justina.jpeg",
-    biography:
-      "Justina coordinates the planning, organisation and delivery of WLI programmes and initiatives.",
+    biography: [
+      "Mrs David Oluwatoyin Justina serves as the Project Coordinator for the Wisdom Leadership initiative, contributing to the planning, organisation and successful execution of programmes and initiatives.",
+    ],
   },
 ];
 
@@ -43,43 +46,53 @@ const TEAM: TeamMember[] = [
     name: "Miss Aburime Faithful Otiti",
     role: "Administrative Director",
     image: "/images/team/aburime-faithful-otiti.jpeg",
-    biography:
-      "Faithful oversees day-to-day operations and supports strategic planning, resource management, team coordination, policy development and stakeholder relations.",
+    biography: [
+      "Miss Aburime Faithful Otiti serves as the Administrative Director of The Wisdom Place Leadership Initiative. She oversees day-to-day operations, ensuring the team runs smoothly, efficiently, and in line with its vision. She contributes to and coordinates Strategic planning and goal setting, Operations, Budgeting and resource management, Team coordination and leadership, Policy development and compliance, Communication and stakeholder relations, Problem-solving and decision-making, and Time management and organisation.",
+    ],
   },
   {
     name: "Bibitayo Ojo",
-    role: "Legal & Regulatory Compliance",
+    role: "Legal and Regulatory Compliance Professional",
     image: "/images/team/bibitayo-ojo.jpeg",
-    biography:
-      "Bibitayo works across corporate and commercial law, data protection, risk assessment and legal advisory. He supports WLI’s leadership and programme teams to keep the organisation’s activities legally sound, transparent and accountable.",
+    biography: [
+      "Bibitayo Ojo is a legal and regulatory compliance professional with experience in corporate and commercial law, data protection, risk assessment management and legal advisory.",
+      "He works closely with the leadership and programme teams to ensure the organisation's activities are legally sound, transparent and accountable.",
+      "With a practical and commercially minded approach, he is committed to helping vision-driven organisations and businesses build strong legal foundations so they can focus on what matters most.",
+    ],
   },
   {
     name: "Joshua Olugbemi",
     role: "Learning, Innovation & Technology Manager",
     image: "/images/team/joshua-olugbemi.jpeg",
-    biography:
-      "Joshua develops practical digital solutions and explores how technology can improve learning experiences. His background includes web development and software engineering.",
+    biography: [
+      "Joshua is a software developer and technology enthusiast passionate about leveraging technology to improve learning experiences, drive innovation and develop practical digital solutions. He bring skills in web development, software engineering and the integration of digital tools for effective learning.",
+    ],
   },
   {
     name: "Marvelous Emmanuel Akintunde",
     role: "Outreaches & Logistics Manager",
     image: "/images/team/marvelous-emmanuel-akintunde.jpeg",
-    biography:
-      "Marvelous plans and coordinates outreach programmes and organisational activities, drawing on his experience in event planning, community engagement and logistics.",
+    biography: [
+      "He serves as the Outreaches & Logistics Manager at The Wisdom Place, where he plays an important role in planning, coordinating, and executing outreach programmes and organizational activities.",
+      "He brings skills in event planning, community engagement, logistics coordination, teamwork, resource management, and problem-solving. His commitment to excellence and effective coordination help ensure that outreach activities are well-planned and successfully executed.",
+    ],
   },
   {
     name: "Aburime Mercy Lynette-obehi",
-    role: "Media & Communications Manager",
+    role: "Media and Communications Manager",
     image: "/images/team/aburime-mercy-lynette-obehi.jpeg",
-    biography:
-      "Mercy manages communications across WLI’s internal and external channels and digital platforms, helping strengthen public engagement and visibility.",
+    biography: [
+      "She is a media and communications professional skilled in creating, managing, and disseminating information across internal and external communication channels and the organization's digital platforms to enhance public engagement and visibility.",
+      "Core skills include writing, editing, storytelling, digital communication, interpersonal relations, and networking.",
+    ],
   },
   {
     name: "Odejide Precious Jesutomi",
-    role: "Accountant, Finance & Procurement Officer",
+    role: "Accountant and Finance and Procurement Officer",
     image: "/images/team/odejide-precious-jesutomi.jpeg",
-    biography:
-      "Precious supports budgeting, bookkeeping, financial reporting and procurement, with a focus on accuracy, transparency and responsible resource management.",
+    biography: [
+      "She serves as an accountant and finance and procurement officer who helps ensure that organization manages its resources with accuracy, transparency, and accountability. She handles budgeting, bookkeeping, and financial reporting with close attention to detail, and keeps costs under control through careful planning and monitoring. On the procurement side, she plans purchases, evaluates suppliers, and negotiates contracts so that every purchase of goods and services delivers real value. Backed by strong auditing and compliance knowledge, and proficient in accounting software and Excel, she keeps the organization's records accurate and its processes in line with the required standards. Reliable, organized, and committed to integrity,",
+    ],
   },
 ];
 
@@ -186,9 +199,14 @@ function TeamCard({ member }: { member: TeamMember }) {
         <h3 className="mt-2 font-display text-xl leading-snug font-medium text-purple">
           {member.name}
         </h3>
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          {member.biography}
-        </p>
+        {member.biography.map((paragraph, index) => (
+          <p
+            key={`${member.name}-${index}`}
+            className="mt-3 text-sm leading-relaxed text-muted-foreground"
+          >
+            {paragraph}
+          </p>
+        ))}
       </div>
     </article>
   );

@@ -31,7 +31,6 @@ export const ORG = {
 } as const;
 
 export const NAV = [
-  { to: "/", label: "Home" },
   { to: "/about", label: "About WLI" },
   { to: "/team", label: "Our Team" },
   { to: "/what-we-do", label: "What We Do" },
