@@ -21,7 +21,7 @@ export function Logo({ inverse = false, className }: { inverse?: boolean; classN
       />
       <span
         className={cn(
-          "min-w-0 flex-1 whitespace-nowrap font-display text-[clamp(0.64rem,3vw,0.9rem)] leading-none font-semibold xl:flex-none xl:text-[1.05rem] xl:leading-[1.02]",
+          "min-w-0 flex-1 whitespace-nowrap font-display text-[clamp(0.78rem,3.8vw,1rem)] leading-none font-semibold xl:flex-none xl:text-[1.05rem] xl:leading-[1.02]",
           inverse ? "text-purple-foreground" : "text-purple",
         )}
       >
