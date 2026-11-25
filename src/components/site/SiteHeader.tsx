@@ -1,14 +1,25 @@
-import { Link } from "@tanstack/react-router";
-import { Menu } from "lucide-react";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { ChevronDown, Menu } from "lucide-react";
 import { useState } from "react";
 
 import { Logo } from "@/components/site/Logo";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { NAV, ORG } from "@/lib/content";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const aboutIsActive = ["/about", "/team"].includes(pathname);
+  const desktopLinks = NAV.filter(
+    (item) => !["/about", "/team"].includes(item.to),
+  );
 
   return (
     <header className="sticky top-0 z-40 border-b border-border/80 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/85">
@@ -18,16 +29,43 @@ export function SiteHeader() {
       >
         Skip to content
       </a>
-      <div className="container-page flex h-20 items-center justify-between gap-6">
+      <div className="container-page relative flex h-20 items-center justify-between gap-6">
         <Logo />
 
-        <nav aria-label="Primary" className="hidden xl:block">
-          <ul className="flex items-center gap-1">
-            {NAV.map((item) => (
+        <nav
+          aria-label="Primary"
+          className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 xl:block"
+        >
+          <ul className="flex items-center gap-1 whitespace-nowrap">
+            <li>
+              <DropdownMenu>
+                <DropdownMenuTrigger
+                  className={`inline-flex items-center gap-1 rounded-md px-2.5 py-2 text-sm font-medium transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${aboutIsActive ? "text-purple" : "text-foreground/80"}`}
+                  aria-label="About WLI pages"
+                >
+                  About <ChevronDown className="size-3.5" aria-hidden />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="center" sideOffset={8} className="w-52 p-1.5">
+                  {NAV.filter((item) =>
+                    ["/about", "/team"].includes(item.to),
+                  ).map((item) => (
+                    <DropdownMenuItem key={item.to} asChild>
+                      <Link
+                        to={item.to}
+                        className="min-h-10 cursor-pointer rounded-md px-3 font-medium"
+                      >
+                        {item.label}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </li>
+            {desktopLinks.map((item) => (
               <li key={item.to}>
                 <Link
                   to={item.to}
-                  className="relative rounded-md px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-primary data-[status=active]:text-purple after:absolute after:inset-x-3 after:-bottom-[1px] after:h-0.5 after:scale-x-0 after:bg-brand-purple after:transition-transform data-[status=active]:after:scale-x-100"
+                  className="relative rounded-md px-2.5 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-primary data-[status=active]:text-purple after:absolute after:inset-x-2.5 after:-bottom-[1px] after:h-0.5 after:scale-x-0 after:bg-brand-purple after:transition-transform data-[status=active]:after:scale-x-100"
                   activeOptions={{ exact: item.to === "/" }}
                 >
                   {item.label}
@@ -38,10 +76,9 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button asChild className="hidden sm:inline-flex">
-                  <Link to="/programs">Explore Resources</Link>
+          <Button asChild className="hidden xl:inline-flex">
+            <Link to="/programs">Explore Resources</Link>
           </Button>
-
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="xl:hidden" aria-label="Open menu">
