@@ -16,6 +16,7 @@ import { Route as AudioMessagesRouteImport } from './routes/audio-messages'
 import { Route as BooksRouteImport } from './routes/books'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as StyleGuideRouteImport } from './routes/style-guide'
+import { Route as TeamRouteImport } from './routes/team'
 import { Route as VideoMessagesRouteImport } from './routes/video-messages'
 import { Route as WhatWeDoRouteImport } from './routes/what-we-do'
 import { Route as InsightsIndexRouteImport } from './routes/insights.index'
@@ -58,6 +59,11 @@ const StyleGuideRoute = StyleGuideRouteImport.update({
   path: '/style-guide',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TeamRoute = TeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VideoMessagesRoute = VideoMessagesRouteImport.update({
   id: '/video-messages',
   path: '/video-messages',
@@ -97,6 +103,7 @@ export interface FileRoutesByFullPath {
   '/books': typeof BooksRoute
   '/contact': typeof ContactRoute
   '/style-guide': typeof StyleGuideRoute
+  '/team': typeof TeamRoute
   '/video-messages': typeof VideoMessagesRoute
   '/what-we-do': typeof WhatWeDoRoute
   '/insights/$slug': typeof InsightsSlugRoute
@@ -112,6 +119,7 @@ export interface FileRoutesByTo {
   '/books': typeof BooksRoute
   '/contact': typeof ContactRoute
   '/style-guide': typeof StyleGuideRoute
+  '/team': typeof TeamRoute
   '/video-messages': typeof VideoMessagesRoute
   '/what-we-do': typeof WhatWeDoRoute
   '/insights/$slug': typeof InsightsSlugRoute
@@ -128,6 +136,7 @@ export interface FileRoutesById {
   '/books': typeof BooksRoute
   '/contact': typeof ContactRoute
   '/style-guide': typeof StyleGuideRoute
+  '/team': typeof TeamRoute
   '/video-messages': typeof VideoMessagesRoute
   '/what-we-do': typeof WhatWeDoRoute
   '/insights/$slug': typeof InsightsSlugRoute
@@ -145,6 +154,7 @@ export interface FileRouteTypes {
     | '/books'
     | '/contact'
     | '/style-guide'
+    | '/team'
     | '/video-messages'
     | '/what-we-do'
     | '/insights/$slug'
@@ -160,6 +170,7 @@ export interface FileRouteTypes {
     | '/books'
     | '/contact'
     | '/style-guide'
+    | '/team'
     | '/video-messages'
     | '/what-we-do'
     | '/insights/$slug'
@@ -175,6 +186,7 @@ export interface FileRouteTypes {
     | '/books'
     | '/contact'
     | '/style-guide'
+    | '/team'
     | '/video-messages'
     | '/what-we-do'
     | '/insights/$slug'
@@ -191,6 +203,7 @@ export interface RootRouteChildren {
   BooksRoute: typeof BooksRoute
   ContactRoute: typeof ContactRoute
   StyleGuideRoute: typeof StyleGuideRoute
+  TeamRoute: typeof TeamRoute
   VideoMessagesRoute: typeof VideoMessagesRoute
   WhatWeDoRoute: typeof WhatWeDoRoute
   InsightsSlugRoute: typeof InsightsSlugRoute
@@ -250,6 +263,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StyleGuideRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/team': {
+      id: '/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/video-messages': {
       id: '/video-messages'
       path: '/video-messages'
@@ -303,6 +323,7 @@ const rootRouteChildren: RootRouteChildren = {
   BooksRoute: BooksRoute,
   ContactRoute: ContactRoute,
   StyleGuideRoute: StyleGuideRoute,
+  TeamRoute: TeamRoute,
   VideoMessagesRoute: VideoMessagesRoute,
   WhatWeDoRoute: WhatWeDoRoute,
   InsightsSlugRoute: InsightsSlugRoute,
