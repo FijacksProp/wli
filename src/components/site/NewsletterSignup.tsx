@@ -4,6 +4,7 @@ import { CheckCircle2, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { subscribeToNewsletter } from "@/lib/newsletter-server";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 export function NewsletterSignup({
   compact = false,
@@ -20,12 +21,20 @@ export function NewsletterSignup({
   const [brevoSynced, setBrevoSynced] = useState(true);
 
   if (complete) {
-    return dialog ? null : (
-      <NewsletterSignupConfirmation
-        compact={compact}
-        brevoSynced={brevoSynced}
-      />
-    );
+    if (dialog) return null;
+    if (compact) {
+      return (
+        <Dialog open>
+          <DialogContent className="sm:max-w-md">
+            <DialogTitle className="sr-only">
+              Newsletter signup complete
+            </DialogTitle>
+            <NewsletterSignupConfirmation dialog brevoSynced={brevoSynced} />
+          </DialogContent>
+        </Dialog>
+      );
+    }
+    return <NewsletterSignupConfirmation brevoSynced={brevoSynced} />;
   }
 
   return (
@@ -239,7 +248,7 @@ export function NewsletterSignupConfirmation({
         className={`mt-3 max-w-sm text-sm leading-relaxed ${compact || dialog ? "text-purple-foreground/80" : "text-muted-foreground"}`}
       >
         We’ll share occasional news, resources and updates from Wisdom
-        Leadership Initiatives. You can unsubscribe at any time.
+        Leadership Initiatives.
       </p>
       {dialog && (
         <p className="mt-7 text-xs text-purple-muted">
