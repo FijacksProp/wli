@@ -8,13 +8,25 @@ import { subscribeToNewsletter } from "@/lib/newsletter-server";
 export function NewsletterSignup({
   compact = false,
   dialog = false,
+  onSuccess,
 }: {
   compact?: boolean;
   dialog?: boolean;
+  onSuccess?: (brevoSynced: boolean) => void;
 }) {
   const [busy, setBusy] = useState(false);
-  const [message, setMessage] = useState("");
-  const [failed, setFailed] = useState(false);
+  const [error, setError] = useState("");
+  const [complete, setComplete] = useState(false);
+  const [brevoSynced, setBrevoSynced] = useState(true);
+
+  if (complete) {
+    return dialog ? null : (
+      <NewsletterSignupConfirmation
+        compact={compact}
+        brevoSynced={brevoSynced}
+      />
+    );
+  }
 
   return (
     <form
@@ -28,8 +40,7 @@ export function NewsletterSignup({
         const form = event.currentTarget;
         const formData = new FormData(form);
         setBusy(true);
-        setMessage("");
-        setFailed(false);
+        setError("");
         try {
           const result = await subscribeToNewsletter({
             data: {
@@ -39,17 +50,15 @@ export function NewsletterSignup({
               website: String(formData.get("website") ?? ""),
             },
           });
-          setMessage(
-            result.brevoSynced
-              ? "Thank you for subscribing. You are on the WLI update list."
-              : "Thank you. We have received your signup.",
-          );
+          const synced = result.brevoSynced === true;
+          setBrevoSynced(synced);
+          setComplete(true);
+          onSuccess?.(synced);
           form.reset();
-        } catch (error) {
-          setFailed(true);
-          setMessage(
-            error instanceof Error
-              ? error.message
+        } catch (reason) {
+          setError(
+            reason instanceof Error
+              ? reason.message
               : "We couldn’t complete your signup. Please try again.",
           );
         } finally {
@@ -66,7 +75,7 @@ export function NewsletterSignup({
           )}
           <p
             className={
-              compact || dialog
+              compact
                 ? "text-sm leading-relaxed text-muted-foreground"
                 : "mt-1 text-sm leading-relaxed text-purple-muted"
             }
@@ -127,6 +136,7 @@ export function NewsletterSignup({
           type="submit"
           disabled={busy}
           variant={compact || dialog ? "default" : "inverse"}
+          className={dialog ? "w-full" : undefined}
         >
           <Mail className="size-4" aria-hidden />
           {busy ? "Joining…" : "Subscribe"}
@@ -172,17 +182,70 @@ export function NewsletterSignup({
           autoComplete="off"
         />
       </div>
-      {message && (
+      {error && (
         <p
-          role={failed ? "alert" : "status"}
-          className={`flex items-start gap-2 text-sm ${failed ? "text-destructive" : compact || dialog ? "text-green-700" : "text-purple-foreground"}`}
+          role="alert"
+          className="rounded-md border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive"
         >
-          {!failed && (
-            <CheckCircle2 className="mt-0.5 size-4 shrink-0" aria-hidden />
-          )}
-          {message}
+          {error}
         </p>
       )}
     </form>
+  );
+}
+
+export function NewsletterSignupConfirmation({
+  compact = false,
+  dialog = false,
+  brevoSynced,
+}: {
+  compact?: boolean;
+  dialog?: boolean;
+  brevoSynced: boolean;
+}) {
+  const title = brevoSynced
+    ? "You’re on the WLI update list."
+    : "We’ve received your signup.";
+
+  return (
+    <section
+      role="status"
+      aria-live="polite"
+      className={
+        dialog
+          ? "-mx-6 -my-6 flex min-h-[360px] animate-in fade-in-0 zoom-in-95 flex-col items-center justify-center rounded-lg bg-purple-deep px-7 py-12 text-center text-purple-foreground duration-300 sm:px-10"
+          : compact
+            ? "my-4 flex animate-in fade-in-0 slide-in-from-bottom-2 flex-col items-center justify-center rounded-lg bg-purple-deep px-6 py-9 text-center text-purple-foreground shadow-md duration-300 sm:px-9"
+            : "flex flex-col items-center justify-center rounded-lg bg-tint px-6 py-8 text-center"
+      }
+    >
+      <span
+        className={`grid size-16 place-items-center rounded-full ${compact || dialog ? "bg-white/15 text-white ring-1 ring-white/25" : "bg-purple/10 text-purple"}`}
+        aria-hidden="true"
+      >
+        <CheckCircle2 className="size-9" />
+      </span>
+      <p
+        className={`mt-5 text-xs font-bold tracking-[0.16em] uppercase ${compact || dialog ? "text-purple-muted" : "text-primary"}`}
+      >
+        Signup received
+      </p>
+      <h2
+        className={`mt-2 max-w-md font-display font-semibold leading-tight ${compact || dialog ? "text-3xl sm:text-4xl" : "text-2xl"}`}
+      >
+        {title}
+      </h2>
+      <p
+        className={`mt-3 max-w-sm text-sm leading-relaxed ${compact || dialog ? "text-purple-foreground/80" : "text-muted-foreground"}`}
+      >
+        We’ll share occasional news, resources and updates from Wisdom
+        Leadership Initiatives. You can unsubscribe at any time.
+      </p>
+      {dialog && (
+        <p className="mt-7 text-xs text-purple-muted">
+          You can close this window now.
+        </p>
+      )}
+    </section>
   );
 }
