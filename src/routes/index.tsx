@@ -3,6 +3,7 @@ import { ArrowRight, Facebook, Instagram } from "lucide-react";
 
 import { SectionHeading } from "@/components/site/blocks";
 import { ContactCta } from "@/components/site/ContactCta";
+import { NewsletterSignup } from "@/components/site/NewsletterSignup";
 import { Button } from "@/components/ui/button";
 import { ORG } from "@/lib/content";
 
@@ -76,10 +77,9 @@ function HomePage() {
           </div>
           <div className="lg:col-span-8">
             <p className="font-display text-2xl leading-snug text-purple sm:text-3xl">
-              Wisdom Leadership Initiatives (The Wisdom Place)
-              is a non-profit organization focused on developing principled
-              leaders who contribute to positive change in their communities and
-              society.
+              Wisdom Leadership Initiatives (The Wisdom Place) is a non-profit
+              organization focused on developing principled leaders who
+              contribute to positive change in their communities and society.
             </p>
             <Link
               to="/about"
@@ -151,8 +151,7 @@ function HomePage() {
             </div>
             <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
               {ORG.socials.map((social) => {
-                const Icon =
-                  social.name === "Instagram" ? Instagram : Facebook;
+                const Icon = social.name === "Instagram" ? Instagram : Facebook;
                 return (
                   <a
                     key={social.name}
@@ -167,6 +166,7 @@ function HomePage() {
                 );
               })}
             </div>
+            <NewsletterSignup compact />
           </div>
         </div>
       </section>

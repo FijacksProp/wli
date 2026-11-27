@@ -5,6 +5,17 @@ export type CrmSession = {
   user: { id: string; email?: string };
 };
 
+export type NewsletterSubscriber = {
+  id: string;
+  name: string | null;
+  email: string;
+  consent_at: string;
+  brevo_status: "pending" | "synced";
+  brevo_synced_at: string | null;
+  brevo_sync_error: string;
+  created_at: string;
+};
+
 export type CrmEnquiry = {
   id: string;
   name: string;
@@ -60,10 +71,7 @@ export type WliResource = {
 };
 
 export type WliBookCategory =
-  | ""
-  | "books"
-  | "meditation_booklets"
-  | "bible_teaching_module";
+  "" | "books" | "meditation_booklets" | "bible_teaching_module";
 
 const API_URL = import.meta.env["VITE_SUPABASE_URL"]?.replace(/\/$/, "");
 const ANON_KEY = import.meta.env["VITE_SUPABASE_ANON_KEY"];
@@ -189,6 +197,20 @@ export function listCrmEnquiries(session: CrmSession) {
     {},
     session.access_token,
   );
+}
+
+export async function listNewsletterSubscribers(session: CrmSession) {
+  const pageSize = 500;
+  const subscribers: NewsletterSubscriber[] = [];
+  for (let offset = 0; ; offset += pageSize) {
+    const page = await api<NewsletterSubscriber[]>(
+      `/rest/v1/wli_newsletter_subscribers?select=id,name,email,consent_at,brevo_status,brevo_synced_at,brevo_sync_error,created_at&status=eq.active&order=created_at.desc&limit=${pageSize}&offset=${offset}`,
+      {},
+      session.access_token,
+    );
+    subscribers.push(...page);
+    if (page.length < pageSize) return subscribers;
+  }
 }
 
 export function updateCrmEnquiry(

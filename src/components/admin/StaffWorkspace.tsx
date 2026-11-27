@@ -5,6 +5,7 @@ import {
   Headphones,
   LayoutDashboard,
   LogOut,
+  Mail,
   Newspaper,
   Plus,
   RefreshCw,
@@ -23,6 +24,7 @@ import {
   deleteResource,
   listBlogPosts,
   listCrmEnquiries,
+  listNewsletterSubscribers,
   listResources,
   saveBlogPost,
   saveResource,
@@ -33,11 +35,13 @@ import {
   type BlogPost,
   type CrmEnquiry,
   type CrmSession,
+  type NewsletterSubscriber,
   type WliBookCategory,
   type WliResource,
 } from "@/lib/crm-api";
+import { unsubscribeNewsletterSubscriber } from "@/lib/newsletter-server";
 
-type Section = "overview" | "enquiries" | "blog" | "resources";
+type Section = "overview" | "enquiries" | "blog" | "resources" | "newsletter";
 type ResourceType = WliResource["type"];
 const statuses: CrmEnquiry["status"][] = [
   "new",
@@ -70,6 +74,7 @@ export function StaffWorkspace({
   const [enquiries, setEnquiries] = useState<CrmEnquiry[]>([]);
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [resources, setResources] = useState<WliResource[]>([]);
+  const [subscribers, setSubscribers] = useState<NewsletterSubscriber[]>([]);
   const [resourceType, setResourceType] = useState<ResourceType>("book");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -84,13 +89,15 @@ export function StaffWorkspace({
       listCrmEnquiries(session),
       listBlogPosts(session),
       listResources(session),
+      listNewsletterSubscribers(session),
     ])
-      .then(([e, p, r]) => {
+      .then(([e, p, r, n]) => {
         if (cancelled) return;
         if (e.status === "fulfilled") setEnquiries(e.value);
         if (p.status === "fulfilled") setPosts(p.value);
         if (r.status === "fulfilled") setResources(r.value);
-        const failures = [e, p, r].filter(
+        if (n.status === "fulfilled") setSubscribers(n.value);
+        const failures = [e, p, r, n].filter(
           (item): item is PromiseRejectedResult => item.status === "rejected",
         );
         if (failures.length)
@@ -111,6 +118,7 @@ export function StaffWorkspace({
     { id: "enquiries", label: "Enquiries", icon: FileText },
     { id: "blog", label: "Blog", icon: Newspaper },
     { id: "resources", label: "Resources", icon: BookOpen },
+    { id: "newsletter", label: "Newsletter", icon: Mail },
   ];
   return (
     <main className="min-h-[75vh] bg-[#faf9fb]">
@@ -169,6 +177,7 @@ export function StaffWorkspace({
             enquiries={enquiries}
             posts={posts}
             resources={resources}
+            subscribers={subscribers.length}
             onNavigate={setSection}
           />
         )}
@@ -201,6 +210,15 @@ export function StaffWorkspace({
             onRefresh={() => setRefreshKey((v) => v + 1)}
           />
         )}
+        {!loading && section === "newsletter" && (
+          <NewsletterSection
+            subscribers={subscribers}
+            session={session}
+            onDelete={(id) =>
+              setSubscribers((list) => list.filter((item) => item.id !== id))
+            }
+          />
+        )}
       </div>
     </main>
   );
@@ -210,11 +228,13 @@ function Overview({
   enquiries,
   posts,
   resources,
+  subscribers,
   onNavigate,
 }: {
   enquiries: CrmEnquiry[];
   posts: BlogPost[];
   resources: WliResource[];
+  subscribers: number;
   onNavigate: (s: Section) => void;
 }) {
   const counts = [
@@ -238,6 +258,12 @@ function Overview({
       icon: BookOpen,
       section: "resources" as const,
     },
+    {
+      label: "Newsletter subscribers",
+      value: subscribers,
+      icon: Mail,
+      section: "newsletter" as const,
+    },
   ];
   return (
     <section className="min-w-0 max-w-full overflow-x-clip pt-7">
@@ -245,7 +271,7 @@ function Overview({
       <p className="mt-1 text-sm text-muted-foreground">
         Your latest enquiries and published WLI content.
       </p>
-      <div className="mt-5 grid min-w-0 gap-3 sm:grid-cols-3">
+      <div className="mt-5 grid min-w-0 gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {counts.map(({ label, value, icon: Icon, section }) => (
           <button
             key={label}
@@ -310,6 +336,154 @@ function Overview({
             </div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function NewsletterSection({
+  subscribers,
+  session,
+  onDelete,
+}: {
+  subscribers: NewsletterSubscriber[];
+  session: CrmSession;
+  onDelete: (id: string) => void;
+}) {
+  const [query, setQuery] = useState("");
+  const [busyId, setBusyId] = useState("");
+  const [error, setError] = useState("");
+  const filtered = subscribers.filter((item) =>
+    `${item.name ?? ""} ${item.email}`
+      .toLowerCase()
+      .includes(query.toLowerCase()),
+  );
+  const exportCsv = () => {
+    const quote = (value: string) => `"${value.replaceAll('"', '""')}"`;
+    const rows = [
+      ["Name", "Email", "Consent date", "Brevo sync status", "Subscribed at"],
+      ...filtered.map((item) => [
+        item.name ?? "",
+        item.email,
+        item.consent_at,
+        item.brevo_status,
+        item.created_at,
+      ]),
+    ];
+    const csv = rows.map((row) => row.map(quote).join(",")).join("\r\n");
+    const url = URL.createObjectURL(
+      new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8" }),
+    );
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "wli-newsletter-subscribers.csv";
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+  return (
+    <section className="min-w-0 max-w-full overflow-x-clip pt-7">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h2 className="text-xl font-semibold">Newsletter subscribers</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Consented subscribers are added to the WLI Brevo list after signup.
+          </p>
+        </div>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={exportCsv}
+          disabled={!filtered.length}
+        >
+          Export CSV
+        </Button>
+      </div>
+      <div className="relative mt-5 max-w-md">
+        <Search
+          className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+          aria-hidden
+        />
+        <Input
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          className="pl-9"
+          placeholder="Search name or email"
+          aria-label="Search subscribers"
+        />
+      </div>
+      {error && (
+        <p role="alert" className="mt-4 text-sm text-destructive">
+          {error}
+        </p>
+      )}
+      <p className="mt-4 text-sm text-muted-foreground">
+        {filtered.length} subscriber{filtered.length === 1 ? "" : "s"}
+      </p>
+      <div className="mt-3 grid gap-3">
+        {filtered.map((item) => (
+          <article
+            key={item.id}
+            className="flex min-w-0 flex-wrap items-center justify-between gap-4 rounded-lg border border-border bg-white p-4"
+          >
+            <div className="min-w-0">
+              <p className="break-words font-semibold">
+                {item.name || "Name not provided"}
+              </p>
+              <p className="break-all text-sm text-muted-foreground">
+                {item.email}
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Consented {new Date(item.consent_at).toLocaleDateString()}
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <span
+                className={`rounded-full px-2.5 py-1 text-xs font-semibold ${item.brevo_status === "synced" ? "bg-emerald-50 text-emerald-800" : "bg-amber-50 text-amber-800"}`}
+                title={item.brevo_sync_error || undefined}
+              >
+                {item.brevo_status === "synced" ? "In Brevo" : "Sync pending"}
+              </span>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                aria-label={`Unsubscribe ${item.email}`}
+                disabled={busyId === item.id}
+                onClick={async () => {
+                  if (
+                    !window.confirm(
+                      `Unsubscribe ${item.email} from WLI emails?`,
+                    )
+                  )
+                    return;
+                  setBusyId(item.id);
+                  setError("");
+                  try {
+                    await unsubscribeNewsletterSubscriber({
+                      data: { id: item.id, accessToken: session.access_token },
+                    });
+                    onDelete(item.id);
+                  } catch (reason) {
+                    setError(
+                      reason instanceof Error
+                        ? reason.message
+                        : "Could not remove subscriber.",
+                    );
+                  } finally {
+                    setBusyId("");
+                  }
+                }}
+              >
+                <Trash2 className="size-4" aria-hidden />
+              </Button>
+            </div>
+          </article>
+        ))}
+        {!filtered.length && (
+          <p className="rounded-lg border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
+            No subscribers match this search.
+          </p>
+        )}
       </div>
     </section>
   );
@@ -1435,9 +1609,7 @@ function ResourceEditor({
   const [bookCategory, setBookCategory] = useState<WliBookCategory>(
     resource?.book_category || "books",
   );
-  const [sortOrder, setSortOrder] = useState(
-    String(resource?.sort_order ?? 0),
-  );
+  const [sortOrder, setSortOrder] = useState(String(resource?.sort_order ?? 0));
   const [description, setDescription] = useState(resource?.description ?? "");
   const [cover, setCover] = useState(resource?.cover_image ?? "");
   const [coverImagePath, setCoverImagePath] = useState(
