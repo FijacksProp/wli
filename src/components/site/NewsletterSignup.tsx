@@ -19,13 +19,20 @@ export function NewsletterSignup({
   const [error, setError] = useState("");
   const [complete, setComplete] = useState(false);
   const [brevoSynced, setBrevoSynced] = useState(true);
+  const [confirmationOpen, setConfirmationOpen] = useState(true);
 
   if (complete) {
     if (dialog) return null;
     if (compact) {
       return (
-        <Dialog open>
-          <DialogContent className="sm:max-w-md">
+        <Dialog
+          open={confirmationOpen}
+          onOpenChange={(open) => {
+            setConfirmationOpen(open);
+            if (!open) setComplete(false);
+          }}
+        >
+          <DialogContent className="bg-purple-deep text-purple-foreground sm:max-w-md">
             <DialogTitle className="sr-only">
               Newsletter signup complete
             </DialogTitle>
@@ -222,25 +229,41 @@ export function NewsletterSignupConfirmation({
       aria-live="polite"
       className={
         dialog
-          ? "-mx-6 -my-6 flex min-h-[360px] animate-in fade-in-0 zoom-in-95 flex-col items-center justify-center rounded-lg bg-purple-deep px-7 py-12 text-center text-purple-foreground duration-300 sm:px-10"
+          ? "-mx-6 -my-6 relative isolate flex min-h-[360px] animate-in fade-in-0 zoom-in-95 flex-col items-center justify-center overflow-hidden rounded-lg bg-purple-deep px-7 py-12 text-center text-purple-foreground duration-300 sm:px-10"
           : compact
-            ? "my-4 flex animate-in fade-in-0 slide-in-from-bottom-2 flex-col items-center justify-center rounded-lg bg-purple-deep px-6 py-9 text-center text-purple-foreground shadow-md duration-300 sm:px-9"
+            ? "my-4 relative isolate flex animate-in fade-in-0 slide-in-from-bottom-2 flex-col items-center justify-center overflow-hidden rounded-lg bg-purple-deep px-6 py-9 text-center text-purple-foreground shadow-md duration-300 sm:px-9"
             : "flex flex-col items-center justify-center rounded-lg bg-tint px-6 py-8 text-center"
       }
     >
+      {(compact || dialog) && (
+        <>
+          <span
+            className="pointer-events-none absolute -right-14 -top-16 size-56 rounded-full border border-white/10"
+            aria-hidden="true"
+          />
+          <span
+            className="pointer-events-none absolute -right-5 -top-7 size-36 rounded-full border border-white/10"
+            aria-hidden="true"
+          />
+          <span
+            className="pointer-events-none absolute -bottom-24 -left-16 size-52 rounded-full bg-brand-purple/15 blur-3xl"
+            aria-hidden="true"
+          />
+        </>
+      )}
       <span
-        className={`grid size-16 place-items-center rounded-full ${compact || dialog ? "bg-white/15 text-white ring-1 ring-white/25" : "bg-purple/10 text-purple"}`}
+        className={`relative z-10 grid size-16 place-items-center rounded-full ${compact || dialog ? "bg-white/15 text-white ring-1 ring-white/25" : "bg-purple/10 text-purple"}`}
         aria-hidden="true"
       >
         <CheckCircle2 className="size-9" />
       </span>
       <p
-        className={`mt-5 text-xs font-bold tracking-[0.16em] uppercase ${compact || dialog ? "text-purple-muted" : "text-primary"}`}
+        className={`relative z-10 mt-5 text-xs font-bold tracking-[0.16em] uppercase ${compact || dialog ? "text-purple-muted" : "text-primary"}`}
       >
         Signup received
       </p>
       <h2
-        className={`mt-2 max-w-md font-display font-semibold leading-tight ${compact || dialog ? "text-3xl sm:text-4xl" : "text-2xl"}`}
+        className={`relative z-10 mt-2 max-w-md font-display font-semibold leading-tight ${compact || dialog ? "text-3xl sm:text-4xl" : "text-2xl"}`}
       >
         {title}
       </h2>
@@ -251,7 +274,7 @@ export function NewsletterSignupConfirmation({
         Leadership Initiatives.
       </p>
       {dialog && (
-        <p className="mt-7 text-xs text-purple-muted">
+        <p className="relative z-10 mt-7 text-xs text-purple-muted">
           You can close this window now.
         </p>
       )}
